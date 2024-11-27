@@ -19,7 +19,13 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      boxShadow: {
+        custom: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+      },
       colors: {
+        redButton: "hsl(var(--redButton))",
+        grayButton: "hsl(var(--grayButton))",
+        green: "hsl(var(--green))",
         gray84: "#d6d6d6",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
