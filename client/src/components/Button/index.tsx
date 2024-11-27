@@ -5,25 +5,15 @@ import { useRouter } from 'next/navigation';
 
 type RoomStatus = "available" | "full" | "inside";
 
-export default function MatchesButton({ roomStatus = "inside" }: { roomStatus?: RoomStatus }) {
+interface MatchesButtonProps {
+  roomStatus?: RoomStatus;
+}
+
+export default function MatchesButton({ roomStatus = "available" }: MatchesButtonProps) {
   const router = useRouter();
 
-  const buttonStyles = {
-    available: {
-      classes: "bg-green hover:bg-green/90",
-      text: "Entrar",
-    },
-    full: {
-      classes: "bg-grayButton hover:bg-gray-400",
-      text: "Entrar",
-    },
-    inside: {
-      classes: "bg-redButton hover:bg-red-600",
-      text: "Sair",
-    },
-  };
-
-  const { classes, text } = buttonStyles[roomStatus] || buttonStyles.available;
+  const bg = roomStatus === "available" ? "bg-green hover:bg-greenHover" : roomStatus === "full" ? "bg-grayButton hover:bg-grayButtonHover" : "bg-redButton hover:bg-redButtonHover";
+  const text = roomStatus === "available" ? "Entrar" : roomStatus === "full" ? "Entrar" : "Sair";
 
   const handleClick = () => {
     if (roomStatus === "inside") {
@@ -36,9 +26,10 @@ export default function MatchesButton({ roomStatus = "inside" }: { roomStatus?: 
   };
 
   return (
-    <Button 
+    <Button
       onClick={handleClick}
-      className={`${classes} w-80 h-12 text-xl leading-6 rounded-2xl shadow-custom font-bold`}>
+      className={`${bg} w-80 h-12 text-xl leading-6 rounded-2xl shadow-custom font-bold font-barlow`}
+    >
       {text}
     </Button>
   );

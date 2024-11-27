@@ -22,10 +22,16 @@ module.exports = {
       boxShadow: {
         custom: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
       },
+      fontFamily: {
+        barlow: ["Barlow", "sans-serif"],
+      },
       colors: {
         redButton: "hsl(var(--redButton))",
+        redButtonHover: "hsl(var(--redButtonHover))",
         grayButton: "hsl(var(--grayButton))",
+        grayButtonHover: "hsl(var(--grayButtonHover))",
         green: "hsl(var(--green))",
+        greenHover: "hsl(var(--greenHover))",
         gray84: "#d6d6d6",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
