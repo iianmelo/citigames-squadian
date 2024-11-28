@@ -1,8 +1,8 @@
 import Image from "next/image";
-import CreateButton from "@/components/CreateButton";
+import MatchesButton from '../components/Button';
 import { LogoCITi } from "../assets";
 
-export default function Home() {
+export default function HomePage() {
   return (
     // <div className="flex flex-1 flex-col h-full justify-around items-center bg-black">
     //   <div>
@@ -16,9 +16,14 @@ export default function Home() {
     //     </p>
     //   </div>
     // </div>
-    <div className="flex flex-1 flex-col h-full justify-around items-center bg-black">
-      <CreateButton />
+    <div className="flex flex-col items-center justify-center min-h-screen gap-4 bg-gray-100">
+      <MatchesButton roomStatus="available" />
+
+      <MatchesButton roomStatus="full" />
+
+      <MatchesButton roomStatus="inside" />
+
+      <MatchesButton />
     </div>
-    
   );
 }
