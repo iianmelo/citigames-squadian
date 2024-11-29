@@ -29,7 +29,14 @@ export default function HomePage() {
     // </div>
 
     <div className="p-80 bg-red-100 h-full">
-      <CardTeste/>
+      <CardTeste 
+      title="minecraft"
+      platform="discord"
+      date="12/12/2024"
+      time="12:00"
+      currentPlayers={3}
+      maxPlayers={5}
+      />
     </div>
   );
 }

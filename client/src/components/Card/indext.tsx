@@ -1,22 +1,31 @@
 import React from "react";
 import { Users } from 'lucide-react';
 
-const CardTeste = () => {
-  return (
-      <button className={`flex flex-col rounded-2xl shadow-cardShadow w-60 h-24 py-4 pl-4 bg-cardGreen hover:bg-cardGreenHover font-light text-sm font-barlow text-textCardColor`}>
+interface CardTesteProps {
+  title: string;
+  platform: string;
+  date: string;
+  time: string;
+  currentPlayers: number;
+  maxPlayers: number;
+}
 
-        <h1 className="leading-4 font-medium">Minecraft</h1>
-        <p className="my-1">Discord</p>
+const CardTeste: React.FC<CardTesteProps>= ({title, platform, date, time, currentPlayers, maxPlayers}) => {
+  return (
+      <button className="flex flex-col rounded-2xl shadow-cardShadow w-60 h-24 py-4 pl-4 bg-cardGreen hover:bg-cardGreenHover font-light text-sm font-barlow text-textCardColor">
+
+        <h1 className="leading-4 font-medium">{title}</h1>
+        <p className="my-1">{platform}</p>
 
         <fieldset className="flex flex-row">
           <div className="flex gap-2">
-        <p className="">06/07/2023</p>
+        <p className="">{date}</p>
         <span>|</span>
-        <p className="">18:35</p>
+        <p className="">{time}</p>
           </div>
 
           <div className=" flex ml-14 items-center gap-1">
-        <p>05</p>
+        <p>{currentPlayers}</p>
         <Users className="w-4 h-5" strokeWidth="2.5" />
           </div>
         </fieldset>
