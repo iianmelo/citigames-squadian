@@ -96,3 +96,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+.custom-button {
+  display: flex;
+  width: 100%;
+  background: #9ae4e6;
+  border-radius: 10px;
+  align-items: center;
+  gap: 20px;
+}
+
+.custom-button:hover {
+  background: #4bb8d1;
+}

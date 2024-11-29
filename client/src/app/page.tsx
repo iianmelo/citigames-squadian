@@ -1,10 +1,13 @@
 import Image from "next/image";
-import MatchesButton from '../components/Button';
+
+import Sidebar from "@/components/sidebar";
+
 import { LogoCITi } from "../assets";
 import CardTeste from "@/components/Card/indext";
 
 export default function HomePage() {
   return (
+
     // <div className="flex flex-1 flex-col h-full justify-around items-center bg-black">
     //   <div>
     //     <Image src={LogoCITi} alt="Logo citi" />
