@@ -1,6 +1,7 @@
 import Image from "next/image";
 import MatchesButton from '../components/Button';
 import { LogoCITi } from "../assets";
+import CardTeste from "@/components/Card/indext";
 
 export default function HomePage() {
   return (
@@ -16,14 +17,19 @@ export default function HomePage() {
     //     </p>
     //   </div>
     // </div>
-    <div className="flex flex-col items-center justify-center min-h-screen gap-4 bg-gray-100">
-      <MatchesButton roomStatus="available" />
 
-      <MatchesButton roomStatus="full" />
+    // <div className="flex flex-col items-center justify-center min-h-screen gap-4 bg-gray-100">
+    //   <MatchesButton roomStatus="available" />
 
-      <MatchesButton roomStatus="inside" />
+    //   <MatchesButton roomStatus="full" />
 
-      <MatchesButton />
+    //   <MatchesButton roomStatus="inside" />
+
+    //   <MatchesButton />
+    // </div>
+
+    <div className="p-80 bg-red-100 h-full">
+      <CardTeste/>
     </div>
   );
 }

@@ -20,12 +20,21 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
+        cardShadow: "0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3)",
         custom: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
       },
       fontFamily: {
         barlow: ["Barlow", "sans-serif"],
       },
       colors: {
+        textCardColor: "hsl(var(--textCardColor))",
+        cardPurple: "hsl(var(--cardPurple))",
+        cardPurpleHover: "hsl(var(--cardPurpleHover))",
+        cardBlue: "hsl(var(--cardBlue))",
+        cardBlueHover: "hsl(var(--cardBlueHover))",
+        cardGray: "hsl(var(--cardGray))",
+        cardGreen: "hsl(var(--cardGreen))",
+        cardGreenHover: "hsl(var(--cardGreenHover))",
         redButton: "hsl(var(--redButton))",
         redButtonHover: "hsl(var(--redButtonHover))",
         grayButton: "hsl(var(--grayButton))",
