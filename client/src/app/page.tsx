@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import Sidebar from "@/components/sidebar";
+
 import { LogoCITi } from "../assets";
 
 export default function Home() {
@@ -15,6 +17,7 @@ export default function Home() {
           <strong>&hearts;</strong> by CITi
         </p>
       </div>
+      <Sidebar />
     </div>
   );
 }
