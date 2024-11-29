@@ -33,7 +33,7 @@ return (
       <Image src={CITi_logo} alt="Logo citi" width={100} height={300} />
     </div>
 
-    <div style={{display: 'flex', flexDirection: 'column', gap: '10px', width: '100%', marginTop: '40px',}}>
+    <div style={{display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', marginTop: '40px',}}>
       <button className="custom-button h-10" onClick={() => handleClick(1)}>
         <Image className='ml-3' src={ExploreMatchesSelected ? GameControllerOn : GameControllerOff} alt="Explore Matches" width={30} height={30}/>
         <p style={{ fontWeight:'700', color: 'white' }}>Explorar Partidas</p>
