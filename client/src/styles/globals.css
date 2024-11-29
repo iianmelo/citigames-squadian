@@ -16,12 +16,24 @@
     text-rendering: optimizeLegibility;
   }
   :root {
+    /* Cards */
+    --textCardColor: 0 0% 16%;
+    --cardGray: 0 0% 87%;
+    --cardPurple: 257 84% 88%;
+    --cardPurpleHover: 257 84% 85%;
+    --cardBlue: 200 96% 91%;
+    --cardBlueHover: 200 96% 84%;
+    --cardGreen: 153 62% 89%;
+    --cardGreenHover: 153 62% 82%;
+
+    /* Buttons */
     --redButton: 354 81% 57%;
     --redButtonHover: 354 81% 47%;
     --grayButton: 0 0% 81%;
     --grayButtonHover: 0 0% 71%;
     --green: 136 75% 61%;
     --greenHover: 136 75% 51%;
+
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
