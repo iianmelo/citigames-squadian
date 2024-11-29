@@ -4,7 +4,7 @@ import Sidebar from "@/components/sidebar";
 
 import { LogoCITi } from "../assets";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="flex flex-1 flex-col h-full justify-around items-center bg-black">
       <div>
