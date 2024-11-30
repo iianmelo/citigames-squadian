@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ChevronLeft } from 'lucide-react';
-
+import { CircleAlert } from 'lucide-react';
 import { useRouter } from "next/navigation";
 
 interface MatchData {
@@ -39,8 +39,12 @@ const CreatePage: React.FC = () => {
   };
 
   return (
-    <div>
-      <main className="min-h-screen bg-TextWhite flex flex-col pt-24 pl-[344px] w-screen">
+    <div className="flex flex-row bg-TextWhite">
+
+      <div
+      className="w-1/5 h-screem bg-cardBlue"
+      >asasdasdasdasd</div>
+      <main className="w-screen min-h-screen flex justify-center pt-20">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col w-[64rem] font-barlow"
@@ -59,11 +63,14 @@ const CreatePage: React.FC = () => {
               <input
                 id="title"
                 type="text"
-                {...register("title", { required: "Este campo é obrigatório" })}
+                {...register("title", { required: "Este campo é obrigatório"  })}
                 className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 w-[30rem] h-12 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder"
                 placeholder="Jogo"
               />
-              {errors.title && <span className="text-redButton text-sm font-normal">{errors.title.message}</span>}
+              {errors.title && <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
+                {errors.title.message}
+                <CircleAlert size={14} strokeWidth={1.7} className="inline-block mr-1" />
+                </span>}
             </div>
 
             <div>
@@ -75,7 +82,11 @@ const CreatePage: React.FC = () => {
                 className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 w-[30rem] h-12 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder"
                 placeholder="Plataforma"
               />
-              {errors.platform && <span className="text-red-500 text-sm">{errors.platform.message}</span>}
+              {errors.platform && <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
+                {errors.platform.message}
+                <CircleAlert size={14} strokeWidth={1.7} className="inline-block mr-1" />
+                </span>}
+                
             </div>
           </fieldset>
 
@@ -89,7 +100,10 @@ const CreatePage: React.FC = () => {
                 className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-[19rem] h-12"
                 placeholder="00/00/0000"
               />
-              {errors.date && <span className="text-red-500 text-sm">{errors.date.message}</span>}
+              {errors.date && <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
+                {errors.date.message}
+                <CircleAlert size={14} strokeWidth={1.7} className="inline-block mr-1" />
+                </span>}
             </div>
 
             <div className="mb-4">
@@ -100,7 +114,10 @@ const CreatePage: React.FC = () => {
                 {...register("time", { required: "Selecione um horário" })}
                 className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-[19rem] h-12"
               />
-              {errors.time && <span className="text-red-500 text-sm">{errors.time.message}</span>}
+              {errors.time && <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
+                {errors.time.message}
+                <CircleAlert size={14} strokeWidth={1.7} className="inline-block mr-1" />
+                </span>}
             </div>
             
             <div className="mb-4">
@@ -112,7 +129,10 @@ const CreatePage: React.FC = () => {
                 className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-[19rem] h-12"
                 placeholder="0"
               />
-              {errors.maxplayers && <span className="text-red-500 text-sm">{errors.maxplayers.message}</span>}
+              {errors.maxplayers && <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
+                {errors.maxplayers.message}
+                <CircleAlert size={14} strokeWidth={1.7} className="inline-block mr-1" />
+                </span>}
             </div>
           </fieldset>
 
@@ -125,7 +145,10 @@ const CreatePage: React.FC = () => {
               className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
               placeholder="Link da partida"
             />
-            {errors.gamelink && <span className="text-red-500 text-sm">{errors.gamelink.message}</span>}
+            {errors.gamelink && <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
+              {errors.gamelink.message}
+              <CircleAlert size={14} strokeWidth={1.7} className="inline-block mr-1" />
+              </span>}
           </div>
 
           <div className="mb-4">
@@ -136,11 +159,14 @@ const CreatePage: React.FC = () => {
               className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-36 resize-none"
               placeholder="Descrição da partida"
             />
-            {errors.discription && <span className="text-red-500 text-sm">{errors.discription.message}</span>}
+            {errors.discription && <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
+              {errors.discription.message}
+              <CircleAlert size={14} strokeWidth={1.7} className="inline-block mr-1" />
+              </span>}
         </div>
 
 
-            <div className="flex justify-end mt-[10rem]">
+            <div className="flex justify-end mt-[6rem] mb-[2.5rem]">
               <button
                 type="submit"
                 className={`w-80 h-12 bg-cardGray text-xl text-white leading-6 rounded-2xl shadow-custom font-bold font-barlow ${isValid ? "bg-green hover:bg-greenHover" : "bg-cardGray"}`}
