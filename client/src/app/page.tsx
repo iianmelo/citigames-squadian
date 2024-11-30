@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import CreatePage from "./CreateGame/createPage";
 import Sidebar from "@/components/sidebar";
 
 import { LogoCITi } from "../assets";
@@ -31,15 +31,17 @@ export default function HomePage() {
     //   <MatchesButton />
     // </div>
 
-    <div className="p-80 bg-red-100 h-full">
-      <CardTeste 
-      title="minecraft"
-      platform="discord"
-      date="12/12/2024"
-      time="12:00"
-      currentPlayers={3}
-      maxPlayers={5}
-      />
-    </div>
+    // <div className="p-80 bg-red-100 h-full">
+    //   <CardTeste 
+    //   title="minecraft"
+    //   platform="discord"
+    //   date="12/12/2024"
+    //   time="12:00"
+    //   currentPlayers={3}
+    //   maxPlayers={5}
+    //   />
+    // </div>
+
+    <CreatePage />
   );
 }

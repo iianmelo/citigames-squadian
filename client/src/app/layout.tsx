@@ -1,3 +1,4 @@
+import Sidebar from "@/components/sidebar";
 import type { Metadata } from "next";
 
 import "styles/globals.css";
@@ -15,7 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body>{children}</body>
+      <body>
+        <Sidebar />
+        {children}
+      </body>
     </html>
   );
 }

@@ -27,6 +27,11 @@ module.exports = {
         barlow: ["Barlow", "sans-serif"],
       },
       colors: {
+        inputFocusBg: "hsl(var(--inputFocusBg))",
+        inputFocusBorder: "hsl(var(--inputFocusBorder))",
+        inputBorder: "hsl(var(--inputBorder))",
+        inputText: "hsl(var(--inputText))",
+        TextWhite: "hsl(var(--TextWhite))",
         textCardColor: "hsl(var(--textCardColor))",
         cardPurple: "hsl(var(--cardPurple))",
         cardPurpleHover: "hsl(var(--cardPurpleHover))",
