@@ -29,8 +29,11 @@ const CreatePage: React.FC = () => {
   });
 
   const onSubmit = (data: MatchData) => {
-    setMatchData(data);
-    console.log("Dados da partida:", data);
+    const formattedDate = data.date.split('-').reverse().join('/');
+    const updatedData = { ...data, date: formattedDate };
+
+    setMatchData(updatedData);
+    console.log("Dados da partida formatados:", updatedData);
   };
 
   const router = useRouter();
@@ -40,10 +43,6 @@ const CreatePage: React.FC = () => {
 
   return (
     <div className="flex flex-row bg-TextWhite">
-
-      <div
-      className="w-1/5 h-screem bg-cardBlue"
-      >asasdasdasdasd</div>
       <main className="w-screen min-h-screen flex justify-center pt-20">
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -96,7 +95,7 @@ const CreatePage: React.FC = () => {
               <input
                 id="date"
                 type="date"
-                {...register("date", { required: "Selecione uma data" })}
+                {...register("date", { required: "Este campo é obrigatório" })}
                 className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-[19rem] h-12"
                 placeholder="00/00/0000"
               />
@@ -111,7 +110,7 @@ const CreatePage: React.FC = () => {
               <input
                 id="time"
                 type="time"
-                {...register("time", { required: "Selecione um horário" })}
+                {...register("time", { required: "Este campo é obrigatório" })}
                 className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-[19rem] h-12"
               />
               {errors.time && <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
@@ -125,7 +124,7 @@ const CreatePage: React.FC = () => {
               <input
                 id="maxplayers"
                 type="maxplayers"
-                {...register("maxplayers", { required: "Selecione uma quantidade" })}
+                {...register("maxplayers", { required: "Este campo é obrigatório" })}
                 className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-[19rem] h-12"
                 placeholder="0"
               />
