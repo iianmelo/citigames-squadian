@@ -2,8 +2,9 @@ import Image from "next/image";
 
 import Sidebar from "@/components/sidebar";
 
-import { LogoCITi } from "../assets";
 import CardTeste from "@/components/Card/indext";
+
+import sidebar from "@/components/sidebar";
 
 export default function HomePage() {
   return (
@@ -40,6 +41,7 @@ export default function HomePage() {
       currentPlayers={3}
       maxPlayers={5}
       />
+      <Sidebar />
     </div>
   );
 }

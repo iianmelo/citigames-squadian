@@ -2,12 +2,14 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { Button } from "../ui/button";
+
 import {
   GameControllerOn,
   GameControllerOff,
   UserOff,
   UserOn,
-  LogoCITi,
+  WhiteLogoCITi,
 } from "@/assets";
 
 export default function Sidebar() {
@@ -28,71 +30,42 @@ export default function Sidebar() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        backgroundColor: "#58CBFB",
-        alignItems: "center",
-        height: "100vh",
-        width: "280px",
-        padding: "20px",
-        position: "fixed",
-        top: "0",
-        left: "0",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-      }}
-    >
-      <div
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          display: "flex",
-          marginTop: "40px",
-        }}
-      >
-        <Image src={LogoCITi} alt="Logo citi" width={100} height={300} />
+    <div className="flex bg-[#58CBFB] items-center h-screen w-[280px] p-5 fixed top-0 left-0 flex-col justify-start">
+      <div className="w-[111.75px] h-[59.52px] top-[24px] left-[84px] gap-0 flex justify-center items-center mt-[40px]">
+        <Image src={WhiteLogoCITi} alt="Logo citi" width={100} height={300} />
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          width: "100%",
-          marginTop: "40px",
-        }}
-      >
-        <button className="custom-button" onClick={() => handleClick(1)}>
+      <div className="flex flex-col gap-4 w-full mt-[40px]">
+        <button
+          className="custom-button w-[232px] h-[43px] top-[110px] left-[24px] gap-0"
+          onClick={() => handleClick(1)}
+        >
           <Image
+            className="ml-3"
             src={ExploreMatchesSelected ? GameControllerOn : GameControllerOff}
             alt="Explore Matches"
             width={30}
             height={30}
           />
-          <p style={{ color: "white" }}>Explorar Partidas</p>
+          <p className="font-bold text-white">Explorar Partidas</p>
         </button>
 
-        <button className="custom-button" onClick={() => handleClick(2)}>
+        <button
+          className="custom-button w-[232px] h-[43px] top-[169px] left-[24px] gap-0"
+          onClick={() => handleClick(2)}
+        >
           <Image
+            className="ml-3"
             src={ProfileSelected ? UserOn : UserOff}
             alt="Profile"
             width={30}
             height={30}
           />
-          <p style={{ color: "white" }}>Perfil</p>
+          <p className="font-bold text-white">Perfil</p>
         </button>
       </div>
 
-      <div
-        style={{
-          justifyContent: "center",
-          display: "flex",
-          alignItems: "center",
-          marginTop: "auto",
-        }}
-      >
+      <div className="w-[219px] h-[24px] top-[976px] left-[31px] gap-0 flex justify-center items-center mt-auto">
         <p className="text-white text-base">
           Made with <strong>&lt; &#x0002F; &gt;</strong> and{" "}
           <strong>&hearts;</strong> by CITi
