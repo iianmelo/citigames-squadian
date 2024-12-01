@@ -27,6 +27,11 @@ module.exports = {
         barlow: ["Barlow", "sans-serif"],
       },
       colors: {
+        inputBg: "hsl(var(--inputBg))",
+        inputBgBorder: "hsl(var(--inputBgBorder))",
+        loginPlaceholder: "hsl(var(--loginPlaceholder))",
+        loginInputBorder: "hsl(var(--loginInputBorder))",
+        loginBg: "hsl(var(--loginBg))",
         textCardColor: "hsl(var(--textCardColor))",
         cardPurple: "hsl(var(--cardPurple))",
         cardPurpleHover: "hsl(var(--cardPurpleHover))",
