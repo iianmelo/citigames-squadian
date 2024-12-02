@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import CreatePage from "./CreateGame/createPage";
 import Sidebar from "@/components/sidebar";
 
 import CardTeste from "@/components/Card/indext";
@@ -41,7 +41,6 @@ export default function HomePage() {
       currentPlayers={3}
       maxPlayers={5}
       />
-      <Sidebar />
     </div>
   );
 }
