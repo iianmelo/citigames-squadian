@@ -16,6 +16,14 @@
     text-rendering: optimizeLegibility;
   }
   :root {
+
+    /* Login */
+    --loginBg: 0 0% 96% / 1;
+    --loginInputBorder: 0 0% 85% / 1;
+    --loginPlaceholder: 0 0% 47% / 1;
+    --inputBg: 198 95% 66% / 0.2;
+    --inputBgBorder: 198 95% 66% / 1;
+
     /* Cards */
     --textCardColor: 0 0% 16%;
     --cardGray: 0 0% 87%;
