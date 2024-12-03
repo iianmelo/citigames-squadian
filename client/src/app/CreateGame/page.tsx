@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { ChevronLeft } from 'lucide-react';
 import { CircleAlert } from 'lucide-react';
 import { useRouter } from "next/navigation";
+import Sidebar from "@/components/sidebar";
 
 interface MatchData {
   title: string;
@@ -43,6 +44,7 @@ const CreatePage: React.FC = () => {
 
   return (
     <div className="flex flex-row">
+      <Sidebar></Sidebar>
       <main className="ml-24 min-h-screen flex justify-center pt-8 border-none">
         <form
           onSubmit={handleSubmit(onSubmit)}
