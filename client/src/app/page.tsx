@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Sidebar from "@/components/sidebar";
-
-
+import Topbar from "@/components/topbar";
 
 
 import React from "react";
@@ -66,6 +65,7 @@ const DetailsPage: React.FC<DetailsPageProps> = (props) => {
   return (
     <div className="flex">
       <Sidebar></Sidebar>
+      
     </div>
   );
 };
