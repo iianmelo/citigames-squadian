@@ -30,7 +30,7 @@ export default function Sidebar() {
   }
 
   return (
-<div className="flex bg-[#58CBFB] items-center min-h-screen w-[280px] p-5 flex-col justify-start">
+<div className="flex bg-[#58CBFB] items-center h-dvh w-[280px] p-5 flex-col justify-start">
       <div className="w-[112.75px] h-[59.52px] top-[24px] left-[84px] gap-0 flex justify-center items-center mt-[40px]">
         <Image src={WhiteLogoCITi} alt="Logo citi" width={140} height={420} />
       </div>

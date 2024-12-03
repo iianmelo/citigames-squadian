@@ -15,7 +15,7 @@ const TopBar: React.FC<TopBarProps> = ({ isReturnEnabled }) => {
   };
 
   return (
-    <div className="w-full bg-white h-16 flex items-center border-b border-b-gray84 sticky">
+    <div className="w-full bg-white h-12 flex items-center border-b border-b-gray84 sticky">
       {isReturnEnabled && (
         <button onClick={handleReturn}>
           <ChevronLeft size={20} className="ml-4" />

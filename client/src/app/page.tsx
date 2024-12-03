@@ -1,5 +1,4 @@
 import Image from "next/image";
-import CreatePage from "./CreateGame/createPage";
 import Sidebar from "@/components/sidebar";
 
 
@@ -67,7 +66,6 @@ const DetailsPage: React.FC<DetailsPageProps> = (props) => {
   return (
     <div className="flex">
       <Sidebar></Sidebar>
-      <CreatePage></CreatePage>
     </div>
   );
 };

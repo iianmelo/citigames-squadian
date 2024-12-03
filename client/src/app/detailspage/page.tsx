@@ -76,11 +76,11 @@ const DetailsPage: React.FC<DetailsPageProps> = (props) => {
       : "inside";
 
   return (
-    <div className="flex h-screen overflow-y-auto">
+    <div className="flex h-dvh overflow-y-auto bg-[#F5F5F5]">
       <Sidebar />
-      <div className="flex-col flex-grow">
+      <div className="flex-col flex-grow ">
         <Topbar isReturnEnabled={true} />
-        <div className="flex flex-grow justify-center bg-[#F5F5F5] pr-[40px] pl-16 py-[10vh]">
+        <div className="flex flex-grow justify-center bg-[#F5F5F5] pr-[40px] pl-16 py-[20px]">
           <div className="flex flex-col flex-grow max-w-md pr-8">
             <h1 className="text-[#6800E4] font-barlow text-[14px] font-normal leading-[15px] text-left">
               Partidas
@@ -93,16 +93,16 @@ const DetailsPage: React.FC<DetailsPageProps> = (props) => {
               {platform}
             </p>
             <div className="py-2">
-              <p className="text-[#000000] font-medium font-barlow">
+              <p className="text-[#000000] font-medium  font-barlow">
                 Descrição:
               </p>
-              <p className="text-lg font-barlow bg-[#FFFFFF80] text-[#454545] rounded-lg p-2 shadow-md">
+              <p className="text-[14px] leading-[17px] font-barlow bg-[#FFFFFF80] text-[#454545] rounded-lg p-2 shadow-md">
                 {description}
               </p>
-              <p className="text-[#000000] font-barlow font-medium pt-2">
+              <p className="text-[#000000] font-barlow font-medium pt-2 text-[16px] leading-[19.2px]">
                 Link:
               </p>
-              <p className="text-lg font-barlow bg-[#FFFFFF80] text-[#454545] rounded-lg p-2 shadow-md">
+              <p className="text-[14px] leading-[17px] font-barlow bg-[#FFFFFF80] text-[#454545] rounded-lg p-2 shadow-md">
                 {link}
               </p>
               <div className="mt-6 flex justify-center">
@@ -112,16 +112,16 @@ const DetailsPage: React.FC<DetailsPageProps> = (props) => {
           </div>
 
           {/* Section for Participants */}
-          <div className="flex flex-col items-start p-4 text-lg font-barlow bg-[#F5F5F5] shadow-md w-[400px] h-screen">
-            <div className="flex items-center justify-between w-full mb-4">
-              <p className="text-lg font-barlow text-[#000000]">Participantes</p>
-              <p className="text-lg font-barlow text-[#000000]">
+          <div className="flex flex-col items-start p-4 text-lg font-barlow bg-[#F5F5F5] shadow-md w-[400px]  rounded-2xl">
+            <div className="flex items-center justify-between w-full mb-4 ">
+              <p className=" font-barlow text-[#000000] text-[24px] leading-[32px]">Participantes</p>
+              <p className=" font-barlow text-[#000000]">
                 {currentPlayers} / {maxPlayers}
               </p>
             </div>
 
-            <div className="mt-4 h-[500px] bg-[#D2EFFE] p-6 w-full overflow-y-auto">
-              <div className="text-lg text-[#454545] font-barlow">
+            <div className=" h-[350px] bg-[#D2EFFE] p-6 w-full overflow-y-auto  rounded-2xl">
+              <div className="text-[16px] text-[#454545] font-barlow leading-[19.2px]">
                 {players.map((player, index) => (
                   <div key={index} className="flex items-center gap-2 mb-2">
                     <Image
