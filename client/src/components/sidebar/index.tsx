@@ -30,9 +30,9 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="flex bg-[#58CBFB] items-center h-screen w-[280px] p-5 fixed top-0 left-0 flex-col justify-start">
-      <div className="w-[111.75px] h-[59.52px] top-[24px] left-[84px] gap-0 flex justify-center items-center mt-[40px]">
-        <Image src={WhiteLogoCITi} alt="Logo citi" width={100} height={300} />
+<div className="flex bg-[#58CBFB] items-center min-h-screen w-[280px] p-5 flex-col justify-start">
+      <div className="w-[112.75px] h-[59.52px] top-[24px] left-[84px] gap-0 flex justify-center items-center mt-[40px]">
+        <Image src={WhiteLogoCITi} alt="Logo citi" width={140} height={420} />
       </div>
 
       <div className="flex flex-col gap-4 w-full mt-[40px]">
