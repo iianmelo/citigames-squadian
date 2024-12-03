@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import CreatePage from "./CreateGame/createPage";
 import Sidebar from "@/components/sidebar";
 
 
@@ -62,15 +62,6 @@ const DetailsPage: React.FC<DetailsPageProps> = (props) => {
     maxPlayers = testvalues.maxPlayers,
     players = testvalues.players,
   } = props;
-
-  const currentPlayers = players.length;
-
-  const roomStatus: "available" | "full" | "inside" =
-    currentPlayers < maxPlayers
-      ? "available"
-      : currentPlayers >= maxPlayers
-      ? "full"
-      : "inside";
 
   return (
     <div className="flex">

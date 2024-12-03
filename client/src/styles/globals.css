@@ -16,6 +16,20 @@
     text-rendering: optimizeLegibility;
   }
   :root {
+
+    /* Inputs */
+    --inputFocusBg: 198 95% 66% / 0.2;
+    --inputFocusBorder: 198 95% 70%;
+    --inputText: 0 0% 5%;
+    --inputBorder: 0 0% 85%;
+
+    /* Login */
+    --loginBg: 0 0% 96% / 1;
+    --loginInputBorder: 0 0% 85% / 1;
+    --loginPlaceholder: 0 0% 47% / 1;
+    --inputBg: 198 95% 66% / 0.2;
+    --inputBgBorder: 198 95% 66% / 1;
+
     /* Cards */
     --textCardColor: 0 0% 16%;
     --cardGray: 0 0% 87%;
@@ -27,6 +41,7 @@
     --cardGreenHover: 153 62% 82%;
 
     /* Buttons */
+    --TextWhite: 0 0% 96%;
     --redButton: 354 81% 57%;
     --redButtonHover: 354 81% 47%;
     --grayButton: 0 0% 81%;

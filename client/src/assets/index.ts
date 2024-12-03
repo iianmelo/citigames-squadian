@@ -4,5 +4,6 @@ import GameControllerOff from "./GameControllerOff.png";
 import UserOn from "./UserOn.png";
 import UserOff from "./UserOff.png";
 import UserCircle from "./UserCircle.png";
+import rocketCitiLogo from "./rocketCitiLogo.png";
 
-export { WhiteLogoCITi, GameControllerOn, GameControllerOff, UserOn, UserOff, UserCircle };
+export { rocketCitiLogo, WhiteLogoCITi, GameControllerOn, GameControllerOff, UserOn, UserOff, UserCircle };
