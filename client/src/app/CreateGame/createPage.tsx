@@ -42,8 +42,8 @@ const CreatePage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-row bg-TextWhite">
-      <main className="w-screen min-h-screen flex justify-center pt-20">
+    <div className="flex flex-row">
+      <main className="ml-24 min-h-screen flex justify-center pt-8">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col w-[64rem] font-barlow"
@@ -165,7 +165,7 @@ const CreatePage: React.FC = () => {
         </div>
 
 
-            <div className="flex justify-end mt-[6rem] mb-[2.5rem]">
+            <div className="flex justify-end mt-[2rem] mb-[2.5rem]">
               <button
                 type="submit"
                 className={`w-80 h-12 bg-cardGray text-xl text-white leading-6 rounded-2xl shadow-custom font-bold font-barlow ${isValid ? "bg-green hover:bg-greenHover" : "bg-cardGray"}`}

@@ -4,6 +4,7 @@ import Sidebar from "@/components/sidebar";
 
 
 
+
 import React from "react";
 
 
@@ -66,7 +67,7 @@ const DetailsPage: React.FC<DetailsPageProps> = (props) => {
   return (
     <div className="flex">
       <Sidebar></Sidebar>
-      <p>asdkjoajsofsjafodaspfkjfapksfaksjfkasjfklasfklassj</p>
+      <CreatePage></CreatePage>
     </div>
   );
 };
