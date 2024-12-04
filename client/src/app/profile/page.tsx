@@ -2,6 +2,7 @@
 
 import TopBar from "@/components/topbar";
 import Sidebar from "@/components/sidebar";
+import { CircleAlert } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import {
@@ -18,12 +19,11 @@ export default function ProfilePage() {
     username: string;
   }
 
-  const { register, handleSubmit } = useForm<UserData>();
+  const { register, handleSubmit, clearErrors, formState: { errors, isSubmitted },} = useForm<UserData>();
 
   const handleUsernameSubmit = (data: { username: string }) => {
     console.log("Username:", data.username);
   };
-
 
   return (
     <div className="flex flex-row w-screen">
@@ -33,15 +33,27 @@ export default function ProfilePage() {
         <h1 className = "pt-8 pl-10 font-barlow leading-[38.4px] text-[32px]">Qual o username?</h1>
         
         <form onSubmit={handleSubmit(handleUsernameSubmit)} className="flex gap-4 pt-6 pl-10">
-          <input
-            className="p-2 border border-inputBorder rounded-sm bg-white w-[320px] placeholder-black-400"
-            type="text"
-            placeholder="Digite o username"
-            {...register("username", { required: true })}
-          />
+          <div className="flex flex-col w-[320px]">
+            <input
+              className={`p-2 border ${
+                errors.username && isSubmitted ? "border-red-500" : "border-inputBorder"
+              } rounded-sm bg-white placeholder-black-400 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder`}
+              type="text"
+              placeholder="Digite o username"
+              {...register("username", { required: "O username é obrigatório" })}
+              onFocus={() => clearErrors("username")}
+            />
+            {errors.username && isSubmitted && (
+              <span className="text-red-500 text-sm mt-1">
+                {errors.username.message}
+                <CircleAlert size={14} strokeWidth={1.7} className="inline-block ml-1" />
+              </span>
+            )}
+          </div>
+
           <Button
             type="submit"
-            className="bg-[#58CBFB] w-[100px] text-white font-barlow rounded-2xl shadow-custom"
+            className="bg-[#58CBFB] w-[100px] text-white font-barlow rounded-2xl shadow-custom hover:bg-[#1AB7FF]"
           >
             Buscar
           </Button>
