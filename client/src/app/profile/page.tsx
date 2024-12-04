@@ -3,16 +3,28 @@
 import TopBar from "@/components/topbar";
 import Sidebar from "@/components/sidebar";
 import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import { useState } from "react";
 
 
 export default function ProfilePage() {
+  interface UserData {
+    username: string;
+  }
+
+  const { register, handleSubmit } = useForm<UserData>();
+
+  const handleUsernameSubmit = (data: { username: string }) => {
+    console.log("Username:", data.username);
+  };
+
+
   return (
     <div className="flex flex-row w-screen">
       <Sidebar/>
@@ -20,16 +32,21 @@ export default function ProfilePage() {
         <TopBar isReturnEnabled={false} />
         <h1 className = "pt-8 pl-10 font-barlow leading-[38.4px] text-[32px]">Qual o username?</h1>
         
-        <div className="flex gap-4 pt-6 pl-10">
-          <input 
-          className="p-2 border border-inputBorder rounded-sm bg-white w-[320px] placeholder-black-400"
-          type="text" 
-          placeholder="Digite o username"
-          required
+        <form onSubmit={handleSubmit(handleUsernameSubmit)} className="flex gap-4 pt-6 pl-10">
+          <input
+            className="p-2 border border-inputBorder rounded-sm bg-white w-[320px] placeholder-black-400"
+            type="text"
+            placeholder="Digite o username"
+            {...register("username", { required: true })}
           />
-
-          <Button className="bg-[#58CBFB] w-[100px] text-white font-barlow rounded-2xl shadow-custom">Buscar</Button>
-        </div>
+          <Button
+            type="submit"
+            className="bg-[#58CBFB] w-[100px] text-white font-barlow rounded-2xl shadow-custom"
+          >
+            Buscar
+          </Button>
+        </form>
+        
         <div className = "pt-[121px] pl-10 ">
             <Tabs defaultValue="account" className="w-full">
               <TabsList className="justify-start flex w-full border-b-2">
