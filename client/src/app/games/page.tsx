@@ -144,7 +144,7 @@ export default function Games() {
         <TopBar isReturnEnabled={false} />
 
         <div className="flex flex-col flex-grow h-[calc(100vh-152px)]">
-          <h1 className="font-barlow font-normal text-[1.75rem] leading-9 pt-12 ml-[4.5rem] w-fit">
+          <h1 className="font-barlow font-normal text-[1.75rem] leading-9 mt-8 mb-4 ml-[4.5rem] w-fit">
             Próximas partidas
           </h1>
 

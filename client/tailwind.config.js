@@ -14,6 +14,9 @@ module.exports = {
       backgroundImage: {
         "citi-logo": 'url("/src/assets/Logo.png")',
       },
+      screens: {
+        'gdcustom': {'min': '900px'}, 
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

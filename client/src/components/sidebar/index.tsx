@@ -61,7 +61,7 @@ export default function Sidebar() {
             width={30}
             height={30}
           />
-          <p className="font-bold text-white">Perfil</p>
+          <p className="font-medium text-white">Perfil</p>
         </button>
       </div>
 
