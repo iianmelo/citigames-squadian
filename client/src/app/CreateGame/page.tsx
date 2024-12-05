@@ -43,9 +43,9 @@ const CreatePage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row h-screen overflow-y-auto">
       <Sidebar></Sidebar>
-      <main className="ml-24 min-h-screen flex justify-center pt-8 border-none">
+      <main className="ml-24 min-h-screen flex justify-center pt-8 border-none overflow-y-auto h-full">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col w-[64rem] font-barlow"
