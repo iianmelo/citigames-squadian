@@ -12,7 +12,7 @@ import LoginScreen from "../loginscreen";
 import {
 } from "@/assets";
 
-export default function DialogEnterGame() {
+export default function DialogCreateGame() {
   
   return (
     <div>
