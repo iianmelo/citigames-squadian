@@ -19,7 +19,7 @@ export default function MatchesButton({ roomStatus = "available" }: MatchesButto
     if (roomStatus === "inside") {
       router.push('/dashboard');
     } else if (roomStatus === "available") {
-      router.push('/room');
+      router.push('');{/* Room */}
     } else {
       console.log("Sem ação para esse estado");
     }

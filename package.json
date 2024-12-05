@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "react-hook-form": "^7.53.2"
+    "react-hook-form": "^7.53.2",
+    "shadcn": "^2.1.6"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.16"
   }
 }
