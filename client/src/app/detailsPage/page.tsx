@@ -51,7 +51,7 @@ const testvalues: DetailsPageProps = {
   ],
 };
 
-export default function DetailsPage({
+function DetailsPage({
   title,
   platform,
   date,
@@ -134,4 +134,8 @@ export default function DetailsPage({
       </div>
     </div>
   );
+}
+
+export default function Page() {
+  return <DetailsPage {...testvalues} />;
 }
