@@ -76,7 +76,7 @@ function DetailsPage({
       <div className="flex flex-col flex-grow overflow-y-auto h-full bg-[#F5F5F5]">
         <Topbar isReturnEnabled={true} />
         <div className="flex flex-col gap-4 gdcustom:gap-0 gdcustom:flex-row flex-grow items-center gdcustom:items-start justify-center bg-[#F5F5F5] pr-[40px] pl-16 py-[10vh]">
-          <div className="flex flex-col items-center gdcustom:items-start flex-grow max-w-md pr-8">
+          <div className="flex flex-col items-center gdcustom:items-start flex-grow max-w-md w-full gdcustom:pr-8">
             <h1 className="text-[#6800E4] font-barlow text-[14px] font-normal leading-[15px] text-left">
               Partidas
             </h1>

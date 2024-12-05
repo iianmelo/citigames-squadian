@@ -28,7 +28,7 @@ export default function MatchesButton({ roomStatus = "available" }: MatchesButto
   return (
     <Button
       onClick={handleClick}
-      className={`${bg} w-80 h-12 text-xl leading-6 rounded-2xl shadow-custom font-bold font-barlow`}
+      className={`${bg} flex-grow max-w-[320px] h-12 text-xl leading-6 rounded-2xl shadow-custom font-bold font-barlow`}
     >
       {text}
     </Button>
