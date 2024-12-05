@@ -20,7 +20,7 @@ interface DetailsPageProps {
   players: string[];
 }
 
-export const testvalues: DetailsPageProps = {
+const testvalues: DetailsPageProps = {
   title: "Minecraft",
   platform: "Discord",
   date: "06/07/2023",
@@ -53,7 +53,7 @@ export const testvalues: DetailsPageProps = {
   ],
 };
 
-const DetailsPage: React.FC<DetailsPageProps> = (props) => {
+export const DetailsPage: React.FC<DetailsPageProps> = (props) => {
   const {
     title = testvalues.title,
     platform = testvalues.platform,
