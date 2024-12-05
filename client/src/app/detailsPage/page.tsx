@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import Sidebar from "@/components/sidebar";
 
 import Topbar from "@/components/topbar";
@@ -53,18 +51,16 @@ const testvalues: DetailsPageProps = {
   ],
 };
 
-export const DetailsPage: React.FC<DetailsPageProps> = (props) => {
-  const {
-    title = testvalues.title,
-    platform = testvalues.platform,
-    date = testvalues.date,
-    time = testvalues.time,
-    link = testvalues.link,
-    description = testvalues.description,
-    maxPlayers = testvalues.maxPlayers,
-    players = testvalues.players,
-  } = props;
-
+export default function DetailsPage({
+  title,
+  platform,
+  date,
+  time,
+  link,
+  description,
+  maxPlayers,
+  players,
+}: DetailsPageProps) {
   const currentPlayers = players.length;
 
   const roomStatus: "available" | "full" | "inside" =
@@ -138,6 +134,4 @@ export const DetailsPage: React.FC<DetailsPageProps> = (props) => {
       </div>
     </div>
   );
-};
-
-export default DetailsPage;
+}
