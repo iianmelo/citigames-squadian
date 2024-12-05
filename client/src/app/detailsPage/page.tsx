@@ -73,10 +73,10 @@ function DetailsPage({
   return (
     <div className="flex h-screen overflow-y-auto">
       <Sidebar />
-      <div className="flex-col flex-grow overflow-y-auto h-full  bg-[#F5F5F5]">
+      <div className="flex flex-col flex-grow overflow-y-auto h-full bg-[#F5F5F5]">
         <Topbar isReturnEnabled={true} />
-        <div className="flex flex-grow justify-center bg-[#F5F5F5] pr-[40px] pl-16 py-[10vh]">
-          <div className="flex flex-col flex-grow max-w-md pr-8">
+        <div className="flex flex-col gap-4 gdcustom:gap-0 gdcustom:flex-row flex-grow items-center gdcustom:items-start justify-center bg-[#F5F5F5] pr-[40px] pl-16 py-[10vh]">
+          <div className="flex flex-col items-center gdcustom:items-start flex-grow max-w-md pr-8">
             <h1 className="text-[#6800E4] font-barlow text-[14px] font-normal leading-[15px] text-left">
               Partidas
             </h1>
@@ -93,7 +93,7 @@ function DetailsPage({
               <p className="text-[16px] leading-[19.2px] text-[#000000] font-medium font-barlow">
                 Descrição:
               </p>
-              <p className="text-[14px] leading-[16.8px] font-barlow bg-[#FFFFFF80] text-[#454545] rounded-lg p-2 shadow-md">
+              <p className="text-[14px] leading-[16.8px] font-barlow bg-[#FFFFFF80] text-[#454545] rounded-lg p-2 shadow-md ">
                 {description}
               </p>
               <p className="text-[16px] leading-[19.2px] text-[#000000] font-barlow font-medium pt-2">
@@ -109,8 +109,8 @@ function DetailsPage({
           </div>
 
           {/* Section for Participants */}
-          <div className="flex flex-col items-start p-4 text-lg font-barlow bg-[#F5F5F5] shadow-md w-[400px] rounded-2xl">
-            <div className="flex items-center justify-between w-full mb-4">
+          <div className="flex flex-col items-center gdcustom:items-start p-4 text-lg font-barlow bg-[#F5F5F5] shadow-md gdcustom:w-[400px] min-w-[250px] rounded-2xl">
+            <div className="flex items-center justify-between min-w-[10px] w-full mb-4">
               <p className="text-[24px] leading-[32px] font-barlow text-[#000000]">
                 Participantes
               </p>

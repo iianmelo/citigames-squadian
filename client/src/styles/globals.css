@@ -115,10 +115,10 @@
 .custom-button {
   display: flex;
   width: 100%;
-  background: #9ae4e6;
-  border-radius: 10px;
+  background: #F5F5F566;
+  border-radius: 4px;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 }
 
 .custom-button:hover {
