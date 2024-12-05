@@ -10,7 +10,7 @@ export default function CreateButton() {
   return (
     <Button
       className="bg-green [&_svg]:size-10 rounded-2xl h-15 px-2 py-2 hover:bg-green/85"
-      onClick={() => router.push('/dashboard')}
+      onClick={() => router.push('')}
     >
       <Plus strokeWidth={1.5} />
     </Button>
