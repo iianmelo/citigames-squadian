@@ -134,14 +134,6 @@ export default function Games() {
     time: "20:30",
     currentPlayers: 5,
     maxPlayers: 12,
-  },
-  {
-    title: "Minecraft",
-    platform: "Mojang",
-    date: "2024-12-10",
-    time: "16:00",
-    currentPlayers: 10,
-    maxPlayers: 20,
   }
   ];
 
