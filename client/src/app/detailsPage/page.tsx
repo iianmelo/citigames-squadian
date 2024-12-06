@@ -1,7 +1,7 @@
 import Sidebar from "@/components/sidebar";
 
 import Topbar from "@/components/topbar";
-
+import { ScrollArea,ScrollBar } from "@/components/ui/scroll-area";
 import MatchesButton from "@/components/Button";
 import DialogEnterGame from "@/components/dialogEnterGame";
 
@@ -71,6 +71,13 @@ function DetailsPage({
       ? "full"
       : "inside";
 
+  const bgColors = {
+    available: "bg-[#D2EFFE]",
+    full: "bg-[#D5C6FA]",
+    inside: "bg-[##D0F4E4]"
+  };
+
+
   return (
     <div className="flex h-screen overflow-y-auto">
       <Sidebar />
@@ -109,7 +116,6 @@ function DetailsPage({
             </div>
           </div>
 
-          {/* Section for Participants */}
           <div className="flex flex-col items-center gdcustom:items-start p-4 text-lg font-barlow bg-[#F5F5F5] shadow-md gdcustom:w-[400px] min-w-[250px] rounded-2xl">
             <div className="flex items-center justify-between min-w-[10px] w-full mb-4">
               <p className="text-[24px] leading-[32px] font-barlow text-[#000000]">
@@ -120,16 +126,17 @@ function DetailsPage({
               </p>
             </div>
 
-            <div className="mt-4 h-[500px] bg-[#D2EFFE] p-6 w-full overflow-y-auto rounded-2xl">
-              <div className="text-[16px] leading-[19.2px] text-[#454545] font-barlow">
+            <ScrollArea className={`mt-4 h-[500px] ${bgColors[roomStatus]} p-5 w-full overflow-y-auto rounded-2xl`}>
+              <div className="text-[16px] leading-[19.2px] text-[#454545] p-1 font-barlow">
                 {players.map((player, index) => (
                   <div key={index} className="flex items-center gap-2 mb-2">
-                    <CircleUserRound size={24} />
-                    <span>{player}</span>
+                  <CircleUserRound size={24} />
+                  <span>{player}</span>
                   </div>
                 ))}
               </div>
-            </div>
+              <ScrollBar orientation="vertical"/>
+            </ScrollArea>
           </div>
         </div>
       </div>
