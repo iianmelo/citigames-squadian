@@ -46,6 +46,10 @@ const CreatePage: React.FC = () => {
     router.back();
   };
 
+  const returnHome = () => {
+    router.push("/games");
+  };
+
   return (
     <div className="flex flex-row h-screen overflow-y-auto">
       <Sidebar></Sidebar>
@@ -76,7 +80,7 @@ const CreatePage: React.FC = () => {
                   {...register("title", {
                     required: "Este campo é obrigatório",
                   })}
-                  className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 w-full h-12 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder"
+                  className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 w-full h-12 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder"
                   placeholder="Jogo"
                 />
                 {errors.title && (
@@ -101,7 +105,7 @@ const CreatePage: React.FC = () => {
                   {...register("platform", {
                     required: "Este campo é obrigatório",
                   })}
-                  className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 h-12 w-full focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder"
+                  className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 h-12 w-full focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder"
                   placeholder="Plataforma"
                 />
                 {errors.platform && (
@@ -127,7 +131,7 @@ const CreatePage: React.FC = () => {
                 id="date"
                 type="date"
                 {...register("date", { required: "Este campo é obrigatório" })}
-                className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
+                className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
                 placeholder="00/00/0000"
               />
               {errors.date && (
@@ -150,7 +154,7 @@ const CreatePage: React.FC = () => {
                 id="time"
                 type="time"
                 {...register("time", { required: "Este campo é obrigatório" })}
-                className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
+                className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
               />
               {errors.time && (
                 <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
@@ -174,7 +178,7 @@ const CreatePage: React.FC = () => {
                 {...register("maxplayers", {
                   required: "Este campo é obrigatório",
                 })}
-                className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
+                className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
                 placeholder="0"
               />
               {errors.maxplayers && (
@@ -200,7 +204,7 @@ const CreatePage: React.FC = () => {
               {...register("gamelink", {
                 required: "Este campo é obrigatório",
               })}
-              className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
+              className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
               placeholder="Link da partida"
             />
             {errors.gamelink && (
@@ -224,7 +228,7 @@ const CreatePage: React.FC = () => {
               {...register("discription", {
                 required: "Este campo é obrigatório",
               })}
-              className="border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-36 resize-none"
+              className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-36 resize-none"
               placeholder="Descrição da partida"
             />
             {errors.discription && (
@@ -241,6 +245,7 @@ const CreatePage: React.FC = () => {
 
           <div className="w-full flex justify-end mt-[2rem] mb-[2.5rem]">
             <button
+              onClick={returnHome}
               type="submit"
               className={`w-80 h-12 bg-cardGray text-xl text-white leading-6 rounded-2xl shadow-custom font-bold font-barlow ${
                 isValid ? "bg-green hover:bg-greenHover" : "bg-cardGray"
