@@ -16,6 +16,7 @@ module.exports = {
       },
       screens: {
         'gdcustom': {'min': '900px'}, 
+        'cgcustom': {'min': '925px'},
       },
       borderRadius: {
         lg: "var(--radius)",
