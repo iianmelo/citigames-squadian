@@ -4,6 +4,7 @@ import * as React from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import CardTeste from "@/components/Card/indext";
 import CreateButton from "@/components/CreateButton";
+import DialogCreateGame from "@/components/dialogCreateGame";
 
 export default function Games() {
   const games = [
@@ -31,110 +32,110 @@ export default function Games() {
       currentPlayers: 5,
       maxPlayers: 10,
     },
-  {
-    title: "Fortnite",
-    platform: "Epic Games",
-    date: "2024-12-06",
-    time: "19:00",
-    currentPlayers: 6,
-    maxPlayers: 16,
-  },
-  {
-    title: "Apex Legends",
-    platform: "Origin",
-    date: "2024-12-07",
-    time: "21:00",
-    currentPlayers: 3,
-    maxPlayers: 20,
-  },
-  {
-    title: "Dota 2",
-    platform: "Steam",
-    date: "2024-12-08",
-    time: "17:00",
-    currentPlayers: 7,
-    maxPlayers: 10,
-  },
-  {
-    title: "Overwatch",
-    platform: "Battle.net",
-    date: "2024-12-09",
-    time: "20:30",
-    currentPlayers: 5,
-    maxPlayers: 12,
-  },
-  {
-    title: "Overwatch",
-    platform: "Battle.net",
-    date: "2024-12-09",
-    time: "20:30",
-    currentPlayers: 5,
-    maxPlayers: 12,
-  },
-  {
-    title: "Overwatch",
-    platform: "Battle.net",
-    date: "2024-12-09",
-    time: "20:30",
-    currentPlayers: 5,
-    maxPlayers: 12,
-  },
-  {
-    title: "Overwatch",
-    platform: "Battle.net",
-    date: "2024-12-09",
-    time: "20:30",
-    currentPlayers: 5,
-    maxPlayers: 12,
-  },
-  {
-    title: "Overwatch",
-    platform: "Battle.net",
-    date: "2024-12-09",
-    time: "20:30",
-    currentPlayers: 5,
-    maxPlayers: 12,
-  },
-  {
-    title: "Overwatch",
-    platform: "Battle.net",
-    date: "2024-12-09",
-    time: "20:30",
-    currentPlayers: 5,
-    maxPlayers: 12,
-  },
-  {
-    title: "Overwatch",
-    platform: "Battle.net",
-    date: "2024-12-09",
-    time: "20:30",
-    currentPlayers: 5,
-    maxPlayers: 12,
-  },
-  {
-    title: "Overwatch",
-    platform: "Battle.net",
-    date: "2024-12-09",
-    time: "20:30",
-    currentPlayers: 5,
-    maxPlayers: 12,
-  },
-  {
-    title: "Overwatch",
-    platform: "Battle.net",
-    date: "2024-12-09",
-    time: "20:30",
-    currentPlayers: 5,
-    maxPlayers: 12,
-  },
-  {
-    title: "Overwatch",
-    platform: "Battle.net",
-    date: "2024-12-09",
-    time: "20:30",
-    currentPlayers: 5,
-    maxPlayers: 12,
-  }
+    {
+      title: "Fortnite",
+      platform: "Epic Games",
+      date: "2024-12-06",
+      time: "19:00",
+      currentPlayers: 6,
+      maxPlayers: 16,
+    },
+    {
+      title: "Apex Legends",
+      platform: "Origin",
+      date: "2024-12-07",
+      time: "21:00",
+      currentPlayers: 3,
+      maxPlayers: 20,
+    },
+    {
+      title: "Dota 2",
+      platform: "Steam",
+      date: "2024-12-08",
+      time: "17:00",
+      currentPlayers: 7,
+      maxPlayers: 10,
+    },
+    {
+      title: "Overwatch",
+      platform: "Battle.net",
+      date: "2024-12-09",
+      time: "20:30",
+      currentPlayers: 5,
+      maxPlayers: 12,
+    },
+    {
+      title: "Overwatch",
+      platform: "Battle.net",
+      date: "2024-12-09",
+      time: "20:30",
+      currentPlayers: 5,
+      maxPlayers: 12,
+    },
+    {
+      title: "Overwatch",
+      platform: "Battle.net",
+      date: "2024-12-09",
+      time: "20:30",
+      currentPlayers: 5,
+      maxPlayers: 12,
+    },
+    {
+      title: "Overwatch",
+      platform: "Battle.net",
+      date: "2024-12-09",
+      time: "20:30",
+      currentPlayers: 5,
+      maxPlayers: 12,
+    },
+    {
+      title: "Overwatch",
+      platform: "Battle.net",
+      date: "2024-12-09",
+      time: "20:30",
+      currentPlayers: 5,
+      maxPlayers: 12,
+    },
+    {
+      title: "Overwatch",
+      platform: "Battle.net",
+      date: "2024-12-09",
+      time: "20:30",
+      currentPlayers: 5,
+      maxPlayers: 12,
+    },
+    {
+      title: "Overwatch",
+      platform: "Battle.net",
+      date: "2024-12-09",
+      time: "20:30",
+      currentPlayers: 5,
+      maxPlayers: 12,
+    },
+    {
+      title: "Overwatch",
+      platform: "Battle.net",
+      date: "2024-12-09",
+      time: "20:30",
+      currentPlayers: 5,
+      maxPlayers: 12,
+    },
+    {
+      title: "Overwatch",
+      platform: "Battle.net",
+      date: "2024-12-09",
+      time: "20:30",
+      currentPlayers: 5,
+      maxPlayers: 12,
+    },
+    {
+      title: "Overwatch",
+      platform: "Battle.net",
+      date: "2024-12-09",
+      time: "20:30",
+      currentPlayers: 5,
+      maxPlayers: 12,
+    },
   ];
 
   return (
@@ -150,31 +151,32 @@ export default function Games() {
 
           <ScrollArea className="h-full mx-12 rounded-md p-0 mb-8">
             {games.length > 0 ? (
-                <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-2">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-2">
                 {games.map((game, index) => (
                   <CardTeste
-                  key={index}
-                  title={game.title}
-                  platform={game.platform}
-                  date={game.date}
-                  time={game.time}
-                  currentPlayers={game.currentPlayers}
-                  maxPlayers={game.maxPlayers}
+                    key={index}
+                    title={game.title}
+                    platform={game.platform}
+                    date={game.date}
+                    time={game.time}
+                    currentPlayers={game.currentPlayers}
+                    maxPlayers={game.maxPlayers}
                   />
                 ))}
-                </div>
+              </div>
             ) : (
               <div className="flex justify-center items-center h-40">
-                <p className="text-2xl text-gray-500">Não há partidas no momento</p>
+                <p className="text-2xl text-gray-500">
+                  Não há partidas no momento
+                </p>
               </div>
             )}
             <ScrollBar orientation="vertical" />
           </ScrollArea>
-
         </div>
-          <div className="ml-auto mx-[4.5rem] mb-12">
-            <CreateButton />
-          </div>
+        <div className="ml-auto mx-[4.5rem] mb-12">
+          <DialogCreateGame />
+        </div>
       </div>
     </div>
   );

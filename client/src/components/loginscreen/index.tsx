@@ -21,7 +21,7 @@ const LoginScreen = () => {
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/dashboard");
+    router.push("/CreateGame");
   };
 
   return (
