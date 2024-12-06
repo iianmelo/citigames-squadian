@@ -12,13 +12,19 @@ import LoginScreen from "../loginscreen";
 import {
 } from "@/assets";
 
-export default function DialogEnterGame() {
+type RoomStatus = "available" | "full" | "inside";
+
+interface MatchesButtonProps {
+  roomStatus?: RoomStatus;
+}
+
+export default function DialogEnterGame({ roomStatus = "available" }: MatchesButtonProps) {
   
   return (
-    <div>
-        <Dialog>
-           <DialogTrigger asChild>
-              <div><ButtonGame/></div>
+    <div className="flex w-full justify-center">
+        <Dialog >
+           <DialogTrigger className="flex w-full max-w-[320px]" asChild>
+              <div><ButtonGame roomStatus={roomStatus} /></div>
             </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <LoginScreen />

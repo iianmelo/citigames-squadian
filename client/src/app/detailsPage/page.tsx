@@ -3,6 +3,7 @@ import Sidebar from "@/components/sidebar";
 import Topbar from "@/components/topbar";
 
 import MatchesButton from "@/components/Button";
+import DialogEnterGame from "@/components/dialogEnterGame";
 
 import React from "react";
 import { CircleUserRound } from "lucide-react";
@@ -102,8 +103,8 @@ function DetailsPage({
               <p className="text-[14px] leading-[16.8px] font-barlow bg-[#FFFFFF80] text-[#454545] rounded-lg p-2 shadow-md">
                 {link}
               </p>
-              <div className="mt-6 flex justify-center">
-                <MatchesButton roomStatus={roomStatus} />
+              <div className="mt-6 flex justify-center items-center">
+                <DialogEnterGame roomStatus={roomStatus}></DialogEnterGame>
               </div>
             </div>
           </div>
