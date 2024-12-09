@@ -22,3 +22,24 @@ model Test {
   name String
   age  Int
 }
+
+model Match {
+  id Int @id @default(autoincrement())
+  name String
+  platform String
+  date DateTime
+  time DateTime
+  description String
+  link String
+  matches_qtd Int
+
+  users UserTable[]
+}
+
+model UserTable {
+  id Int @id @default(autoincrement())
+  username String
+  email String
+
+  matches Match[]
+}
