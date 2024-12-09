@@ -19,7 +19,7 @@ import { CircleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import * as React from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import CreateButton from "@/components/CreateButton";
 
 import CardTeste from "@/components/Card/indext";
@@ -52,7 +52,7 @@ export default function ProfilePage() {
       platform: "PlayStation",
       date: "2025-12-6",
       time: "22:00",
-      currentPlayers: 12,
+      currentPlayers: 11,
       maxPlayers: 12,
     },
     {
@@ -60,7 +60,7 @@ export default function ProfilePage() {
       platform: "PlayStation",
       date: "2025-12-6",
       time: "22:00",
-      currentPlayers: 12,
+      currentPlayers: 11,
       maxPlayers: 12,
     },
     {
@@ -68,7 +68,7 @@ export default function ProfilePage() {
       platform: "PlayStation",
       date: "2025-12-6",
       time: "22:00",
-      currentPlayers: 12,
+      currentPlayers: 11,
       maxPlayers: 12,
     },
     {
@@ -137,9 +137,9 @@ export default function ProfilePage() {
   const [date2, setDate2] = React.useState<Date>();
 
   return (
-    <div className="flex flex-row w-screen">
+    <div className="flex h-screen flex-row w-screen">
       <Sidebar />
-      <div className="w-full bg-loginBg ">
+      <div className="h-full overflow-y-auto w-full bg-loginBg ">
         <TopBar isReturnEnabled={false} />
         <h1 className="pt-4 pl-10 font-barlow leading-[38.4px] text-[32px]">
           Qual o username?
@@ -184,7 +184,7 @@ export default function ProfilePage() {
         <div className="w-full pt-[50px] pl-10">
           <Tabs defaultValue="account" className="w-full">
             <TabsList className="justify-between flex w-full border-b-2">
-              <div className="w-full flex gap-3">
+              <div className="ml-10 w-full flex gap-3">
                 <TabsTrigger
                   className="!bg-[#E2F4EC] w-[136px]  border-2 border-[#D1CFCF] border-b-0 rounded-b-none"
                   value="Partidas"
@@ -198,7 +198,7 @@ export default function ProfilePage() {
                   Histórico
                 </TabsTrigger>
               </div>
-              <div className="space-x-2">
+              <div className="mr-10 flex space-x-2">
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
@@ -258,8 +258,8 @@ export default function ProfilePage() {
                 <h1 className="leading-[38.4px] text-[32px] font-barlow">
                   Partidas abertas
                 </h1>
-                <ScrollArea className="w-full mt-8 mb-4 h-32">
-                  <div className="w-10/12 grid grid-flow-col auto-cols-max gap-4 overflow-x-auto overflow-y-hidden">
+                <ScrollArea className="w-full mt-8 mb-4 h-32 rounded-md">
+                  <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-2">
                     {openGames.length > 0 ? (
                       openGames.map((game, index) => (
                         <CardTeste
@@ -281,12 +281,13 @@ export default function ProfilePage() {
                       </div>
                     )}
                   </div>
+                  <ScrollBar orientation="vertical" />
                 </ScrollArea>
                 <h1 className="mt-3 leading-[38.4px] text-[32px] font-barlow">
                   Partidas fechadas
                 </h1>
-                <ScrollArea className="w-full mt-8 mb-4 h-32">
-                  <div className="w-10/12 grid grid-flow-col auto-cols-max gap-4 overflow-x-auto overflow-y-hidden">
+                <ScrollArea className="w-full mt-8 mb-4 h-32 rounded-md">
+                  <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-2">
                     {closedGames.length > 0 ? (
                       closedGames.map((game, index) => (
                         <CardTeste
@@ -308,6 +309,7 @@ export default function ProfilePage() {
                       </div>
                     )}
                   </div>
+                  <ScrollBar orientation="vertical" />
                 </ScrollArea>
               </div>
             </TabsContent>
@@ -315,8 +317,8 @@ export default function ProfilePage() {
               <h1 className="leading-[38.4px] text-[32px] font-barlow">
                 Histórico de partidas
               </h1>
-              <ScrollArea className="w-full mt-8 mb-4 h-32">
-                <div className="w-10/12 grid grid-flow-col auto-cols-max gap-4 overflow-x-auto overflow-y-hidden">
+              <ScrollArea className="w-full mt-8 mb-4 h-32 rounded-md">
+                <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-2">
                   {historicalGames.length > 0 ? (
                     historicalGames.map((game, index) => (
                       <CardTeste
@@ -338,6 +340,7 @@ export default function ProfilePage() {
                     </div>
                   )}
                 </div>
+                <ScrollBar orientation="vertical" />
               </ScrollArea>
             </TabsContent>
           </Tabs>
