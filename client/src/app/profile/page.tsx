@@ -68,7 +68,7 @@ export default function ProfilePage() {
       platform: "PlayStation",
       date: "2025-12-6",
       time: "22:00",
-      currentPlayers: 11,
+      currentPlayers: 12,
       maxPlayers: 12,
     },
     {
@@ -76,7 +76,7 @@ export default function ProfilePage() {
       platform: "PlayStation",
       date: "2025-12-6",
       time: "22:00",
-      currentPlayers: 7,
+      currentPlayers: 12,
       maxPlayers: 12,
     },
     {
@@ -92,7 +92,7 @@ export default function ProfilePage() {
       platform: "PlayStation",
       date: "2023-12-6",
       time: "22:00",
-      currentPlayers: 11,
+      currentPlayers: 12,
       maxPlayers: 12,
     },
     {
@@ -100,7 +100,7 @@ export default function ProfilePage() {
       platform: "PlayStation",
       date: "2025-12-6",
       time: "22:00",
-      currentPlayers: 11,
+      currentPlayers: 12,
       maxPlayers: 12,
     },
     {
@@ -108,7 +108,7 @@ export default function ProfilePage() {
       platform: "PlayStation",
       date: "2025-12-6",
       time: "22:00",
-      currentPlayers: 11,
+      currentPlayers: 12,
       maxPlayers: 12,
     },
   ]);
@@ -177,14 +177,14 @@ export default function ProfilePage() {
             type="submit"
             className="bg-[#58CBFB] w-[100px] text-white font-barlow rounded-2xl shadow-custom hover:bg-[#1AB7FF]"
           >
-            Buscar
+            <p className="font-semibold">Buscar</p>
           </Button>
         </form>
 
         <div className="w-full pt-[50px] pl-10">
           <Tabs defaultValue="account" className="w-full">
             <TabsList className="justify-between flex w-full border-b-2">
-              <div className="ml-10 w-full flex gap-3">
+              <div className="ml-10 flex gap-3 flex-1">
                 <TabsTrigger
                   className="!bg-[#E2F4EC] w-[136px]  border-2 border-[#D1CFCF] border-b-0 rounded-b-none"
                   value="Partidas"
@@ -198,13 +198,13 @@ export default function ProfilePage() {
                   Histórico
                 </TabsTrigger>
               </div>
-              <div className="mr-10 flex space-x-2">
+              <div className="mr-10 flex flex-1 space-x-2 justify-end">
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-[200px] justify-between text-left font-normal",
+                        "max-w-[200px] justify-between text-left font-normal",
                         !date1 && "text-muted-foreground"
                       )}
                     >
@@ -230,7 +230,7 @@ export default function ProfilePage() {
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-[200px] justify-between text-left font-normal",
+                        "max-w-[200px] justify-between text-left font-normal",
                         !date2 && "text-muted-foreground"
                       )}
                     >
@@ -255,11 +255,11 @@ export default function ProfilePage() {
             </TabsList>
             <TabsContent className="flex-row w-full" value="Partidas">
               <div className="w-full">
-                <h1 className="leading-[38.4px] text-[32px] font-barlow">
+                <h1 className="mt-4 font-medium leading-[38.4px] text-[32px] font-barlow">
                   Partidas abertas
                 </h1>
-                <ScrollArea className="w-full mt-8 mb-4 h-32 rounded-md">
-                  <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-2">
+                <ScrollArea className="w-full mt-4 mb-4 h-28 rounded-md overflow-y-auto">
+                  <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-2 overflow-y-auto">
                     {openGames.length > 0 ? (
                       openGames.map((game, index) => (
                         <CardTeste
@@ -283,10 +283,10 @@ export default function ProfilePage() {
                   </div>
                   <ScrollBar orientation="vertical" />
                 </ScrollArea>
-                <h1 className="mt-3 leading-[38.4px] text-[32px] font-barlow">
+                <h1 className="font-medium mt-3 leading-[38.4px] text-[32px] font-barlow">
                   Partidas fechadas
                 </h1>
-                <ScrollArea className="w-full mt-8 mb-4 h-32 rounded-md">
+                <ScrollArea className="w-full mt-4 mb-4 h-28 rounded-md">
                   <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-2">
                     {closedGames.length > 0 ? (
                       closedGames.map((game, index) => (
@@ -314,10 +314,10 @@ export default function ProfilePage() {
               </div>
             </TabsContent>
             <TabsContent className="flex-row w-full" value="Histórico">
-              <h1 className="leading-[38.4px] text-[32px] font-barlow">
+              <h1 className="mt-4 font-medium leading-[38.4px] text-[32px] font-barlow">
                 Histórico de partidas
               </h1>
-              <ScrollArea className="w-full mt-8 mb-4 h-32 rounded-md">
+              <ScrollArea className="w-full mt-4 mb-4 h-28 rounded-md">
                 <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-2">
                   {historicalGames.length > 0 ? (
                     historicalGames.map((game, index) => (
