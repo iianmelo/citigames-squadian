@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { usePathname, useRouter } from "next/navigation"; 
 
 import {
   GameControllerOn,
@@ -13,21 +14,8 @@ import {
 } from "@/assets";
 
 export default function Sidebar() {
-  const [ExploreMatchesSelected, setExploreMatchesSelected] = useState(false);
-  const [ProfileSelected, setProfileSelected] = useState(false);
-
-  function handleClick(option: number) {
-    if (option === 1) {
-      setExploreMatchesSelected(true);
-      setProfileSelected(false);
-    } else if (option == 2) {
-      setExploreMatchesSelected(false);
-      setProfileSelected(true);
-    } else {
-      setExploreMatchesSelected(false);
-      setProfileSelected(false);
-    }
-  }
+  const router = useRouter();
+  const pathname = usePathname()
 
   return (
 <div className="flex bg-[#58CBFB] items-center h-dvh w-[280px] p-5 flex-col justify-start">
@@ -38,11 +26,11 @@ export default function Sidebar() {
       <div className="flex flex-col gap-4 w-full mt-[40px]">
         <button
           className="custom-button w-[232px] h-[43px] top-[110px] left-[24px] gap-0"
-          onClick={() => handleClick(1)}
+          onClick={() => router.push("/games")}
         >
           <Image
             className="ml-3"
-            src={ExploreMatchesSelected ? GameControllerOn : GameControllerOff}
+            src={pathname === "/games" ? GameControllerOn : GameControllerOff}
             alt="Explore Matches"
             width={30}
             height={30}
@@ -52,16 +40,16 @@ export default function Sidebar() {
 
         <button
           className="custom-button w-[232px] h-[43px] top-[169px] left-[24px] gap-0"
-          onClick={() => handleClick(2)}
+          onClick={() => router.push("/detailsPage")}
         >
           <Image
             className="ml-3"
-            src={ProfileSelected ? UserOn : UserOff}
+            src={pathname === "/detailsPage" ? UserOn : UserOff}
             alt="Profile"
             width={30}
             height={30}
           />
-          <p className="font-bold text-white">Perfil</p>
+          <p className="font-medium text-white">Perfil</p>
         </button>
       </div>
 
