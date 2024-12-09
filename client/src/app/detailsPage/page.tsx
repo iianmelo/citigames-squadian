@@ -3,7 +3,6 @@ import Sidebar from "@/components/sidebar";
 import Topbar from "@/components/topbar";
 import { ScrollArea,ScrollBar } from "@/components/ui/scroll-area";
 import MatchesButton from "@/components/Button";
-import DialogEnterGame from "@/components/dialogEnterGame";
 
 import React from "react";
 import { CircleUserRound } from "lucide-react";
@@ -111,7 +110,6 @@ function DetailsPage({
                 {link}
               </p>
               <div className="mt-6 flex justify-center items-center">
-                <DialogEnterGame roomStatus={roomStatus}></DialogEnterGame>
               </div>
             </div>
           </div>
