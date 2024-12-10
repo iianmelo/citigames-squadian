@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import "styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "Next.js Boilerplate",
+  title: "CITi Games",
   description: "A simple boilerplate for next.js",
   manifest: "/manifest.json",
 };
