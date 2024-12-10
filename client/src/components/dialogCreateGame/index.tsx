@@ -3,7 +3,7 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 import ButtonGame from "@/components/CreateButton";
-import LoginScreen from "../loginScreenEnter";
+import LoginScreen from "../loginScreenCreate";
 
 import {} from "@/assets";
 
