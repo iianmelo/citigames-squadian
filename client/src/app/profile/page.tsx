@@ -20,8 +20,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import * as React from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import CreateButton from "@/components/CreateButton";
-
+import DialogCreateGame from "@/components/dialogCreateGame";
 import CardTeste from "@/components/Card/indext";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -345,7 +344,7 @@ export default function ProfilePage() {
             </TabsContent>
           </Tabs>
           <div className="fixed bottom-0 right-0 m-8">
-            <CreateButton />
+            <DialogCreateGame/>
           </div>
         </div>
       </div>

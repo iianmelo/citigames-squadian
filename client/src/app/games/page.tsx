@@ -3,7 +3,6 @@ import TopBar from "@/components/topbar";
 import * as React from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import CardTeste from "@/components/Card/indext";
-import CreateButton from "@/components/CreateButton";
 import DialogCreateGame from "@/components/dialogCreateGame";
 
 export default function Games() {
