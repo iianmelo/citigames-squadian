@@ -1,11 +1,11 @@
-import Sidebar from "@/components/sidebar";
-
+import React, { useEffect, useState } from "react";
 import Topbar from "@/components/topbar";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import MatchesButton from "@/components/Button";
 import DialogEnterGame from "@/components/dialogEnterGame";
-import React from "react";
 import { CircleUserRound } from "lucide-react";
+import axios from "axios";
+import Sidebar from "@/components/sidebar";
 
 interface DetailsPageProps {
   title: string;
@@ -18,37 +18,14 @@ interface DetailsPageProps {
   players: string[];
 }
 
-const testvalues: DetailsPageProps = {
-  title: "Minecraft",
-  platform: "Discord",
-  date: "06/07/2023",
-  time: "19h",
-  link: "Lorem ipsum dolor sit amet consec...",
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu rutrum mauris, quis ullamcorper urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu rutrum mauris, quis ullamcorper urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu rutrum mauris, quis ullamcorper urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu rutrum mauris, quis ullamcorper urna.",
-  maxPlayers: 20,
-  players: [
-    "Jogador1",
-    "Jogador2",
-    "Jogador3",
-    "Jogador4",
-    "Jogador5",
-    "Jogador6",
-    "Jogador7",
-    "Jogador8",
-    "Jogador9",
-    "Jogador10",
-    "Jogador11",
-    "Jogador12",
-    "Jogador13",
-    "Jogador14",
-    "Jogador15",
-    "Jogador16",
-    "Jogador17",
-    "Jogador18",
-    "Jogador19",
-    "Jogador20",
-  ],
+const fetchMatchDetails = async (id: number): Promise<DetailsPageProps> => {
+  try {
+    const response = await axios.get(`http://localhost:3001/match/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching match details:", error);
+    throw error;
+  }
 };
 
 function DetailsPage({
@@ -145,5 +122,27 @@ function DetailsPage({
 }
 
 export default function Page() {
-  return <DetailsPage {...testvalues} />;
+  const [details, setDetails] = useState<DetailsPageProps | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<any>(null);
+
+  useEffect(() => {
+    const getMatchDetails = async () => {
+      try {
+        const data = await fetchMatchDetails(2); // ID da requisição
+        setDetails(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getMatchDetails();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return details ? <DetailsPage {...details} /> : <p>No details available</p>;
 }
