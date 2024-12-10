@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ChevronLeft } from "lucide-react";
 import { CircleAlert } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Sidebar from "@/components/sidebar";
 
 interface MatchData {
@@ -18,6 +18,10 @@ interface MatchData {
 }
 
 const CreatePage: React.FC = () => {
+  const searchParams = useSearchParams();
+  const username = searchParams.get("username");
+  const email = searchParams.get("email");
+
   const {
     register,
     handleSubmit,

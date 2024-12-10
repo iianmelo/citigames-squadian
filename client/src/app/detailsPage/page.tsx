@@ -1,9 +1,9 @@
 import Sidebar from "@/components/sidebar";
 
 import Topbar from "@/components/topbar";
-import { ScrollArea,ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import MatchesButton from "@/components/Button";
-
+import DialogEnterGame from "@/components/dialogEnterGame";
 import React from "react";
 import { CircleUserRound } from "lucide-react";
 
@@ -73,9 +73,8 @@ function DetailsPage({
   const bgColors = {
     available: "bg-[#D2EFFE]",
     full: "bg-[#D5C6FA]",
-    inside: "bg-[##D0F4E4]"
+    inside: "bg-[##D0F4E4]",
   };
-
 
   return (
     <div className="flex h-screen overflow-y-auto">
@@ -110,6 +109,7 @@ function DetailsPage({
                 {link}
               </p>
               <div className="mt-6 flex justify-center items-center">
+                <DialogEnterGame></DialogEnterGame>
               </div>
             </div>
           </div>
@@ -124,16 +124,18 @@ function DetailsPage({
               </p>
             </div>
 
-            <ScrollArea className={`mt-4 h-[500px] ${bgColors[roomStatus]} p-5 w-full overflow-y-auto rounded-2xl`}>
+            <ScrollArea
+              className={`mt-4 h-[500px] ${bgColors[roomStatus]} p-5 w-full overflow-y-auto rounded-2xl`}
+            >
               <div className="text-[16px] leading-[19.2px] text-[#454545] p-1 font-barlow">
                 {players.map((player, index) => (
                   <div key={index} className="flex items-center gap-2 mb-2">
-                  <CircleUserRound size={24} />
-                  <span>{player}</span>
+                    <CircleUserRound size={24} />
+                    <span>{player}</span>
                   </div>
                 ))}
               </div>
-              <ScrollBar orientation="vertical"/>
+              <ScrollBar orientation="vertical" />
             </ScrollArea>
           </div>
         </div>
