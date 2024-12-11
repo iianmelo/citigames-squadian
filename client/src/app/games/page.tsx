@@ -1,141 +1,40 @@
+"use client";
+
 import Sidebar from "@/components/sidebar";
 import TopBar from "@/components/topbar";
 import * as React from "react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import CardTeste from "@/components/Card/indext";
 import DialogCreateGame from "@/components/dialogCreateGame";
+import axios from "axios";
+import { format, parseISO } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 export default function Games() {
-  const games = [
-    {
-      title: "League of Legends",
-      platform: "Discord",
-      date: "2024-12-02",
-      time: "20:00",
-      currentPlayers: 4,
-      maxPlayers: 10,
-    },
-    {
-      title: "Valorant",
-      platform: "Teamspeak",
-      date: "2024-12-03",
-      time: "22:00",
-      currentPlayers: 8,
-      maxPlayers: 12,
-    },
-    {
-      title: "Counter-Strike",
-      platform: "Steam",
-      date: "2024-12-05",
-      time: "18:00",
-      currentPlayers: 5,
-      maxPlayers: 10,
-    },
-    {
-      title: "Fortnite",
-      platform: "Epic Games",
-      date: "2024-12-06",
-      time: "19:00",
-      currentPlayers: 6,
-      maxPlayers: 16,
-    },
-    {
-      title: "Apex Legends",
-      platform: "Origin",
-      date: "2024-12-07",
-      time: "21:00",
-      currentPlayers: 3,
-      maxPlayers: 20,
-    },
-    {
-      title: "Dota 2",
-      platform: "Steam",
-      date: "2024-12-08",
-      time: "17:00",
-      currentPlayers: 7,
-      maxPlayers: 10,
-    },
-    {
-      title: "Overwatch",
-      platform: "Battle.net",
-      date: "2024-12-09",
-      time: "20:30",
-      currentPlayers: 5,
-      maxPlayers: 12,
-    },
-    {
-      title: "Overwatch",
-      platform: "Battle.net",
-      date: "2024-12-09",
-      time: "20:30",
-      currentPlayers: 5,
-      maxPlayers: 12,
-    },
-    {
-      title: "Overwatch",
-      platform: "Battle.net",
-      date: "2024-12-09",
-      time: "20:30",
-      currentPlayers: 5,
-      maxPlayers: 12,
-    },
-    {
-      title: "Overwatch",
-      platform: "Battle.net",
-      date: "2024-12-09",
-      time: "20:30",
-      currentPlayers: 5,
-      maxPlayers: 12,
-    },
-    {
-      title: "Overwatch",
-      platform: "Battle.net",
-      date: "2024-12-09",
-      time: "20:30",
-      currentPlayers: 5,
-      maxPlayers: 12,
-    },
-    {
-      title: "Overwatch",
-      platform: "Battle.net",
-      date: "2024-12-09",
-      time: "20:30",
-      currentPlayers: 5,
-      maxPlayers: 12,
-    },
-    {
-      title: "Overwatch",
-      platform: "Battle.net",
-      date: "2024-12-09",
-      time: "20:30",
-      currentPlayers: 5,
-      maxPlayers: 12,
-    },
-    {
-      title: "Overwatch",
-      platform: "Battle.net",
-      date: "2024-12-09",
-      time: "20:30",
-      currentPlayers: 5,
-      maxPlayers: 12,
-    },
-    {
-      title: "Overwatch",
-      platform: "Battle.net",
-      date: "2024-12-09",
-      time: "20:30",
-      currentPlayers: 5,
-      maxPlayers: 12,
-    },
-    {
-      title: "Overwatch",
-      platform: "Battle.net",
-      date: "2024-12-09",
-      time: "20:30",
-      currentPlayers: 5,
-      maxPlayers: 12,
-    },
-  ];
+  interface Game {
+    name: string;
+    platform: string;
+    date: string;
+    time: string;
+    currentPlayers: number;
+  }
+
+  const [games, setGames] = React.useState<Game[]>([]);
+  const [error, setError] = React.useState("");
+
+  React.useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/match");
+        setGames(response.data);
+      } catch (err) {
+        setError("Erro ao carregar as partidas. Tente novamente mais tarde.");
+        console.error(err);
+      }
+    };
+
+    fetchGames();
+  }, []);
 
   return (
     <div className="flex flex-row">
@@ -149,17 +48,21 @@ export default function Games() {
           </h1>
 
           <ScrollArea className="h-full mx-12 rounded-md p-0 mb-8">
-            {games.length > 0 ? (
+            {error ? (
+              <div className="flex justify-center items-center h-40">
+                <p className="text-2xl text-red-500">{error}</p>
+              </div>
+            ) : games.length > 0 ? (
               <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-2">
                 {games.map((game, index) => (
                   <CardTeste
                     key={index}
-                    title={game.title}
+                    name={game.name}
                     platform={game.platform}
-                    date={game.date}
-                    time={game.time}
-                    currentPlayers={game.currentPlayers}
-                    maxPlayers={game.maxPlayers}
+                    date={format(parseISO(game.date), "dd/MM/yyyy", { locale: ptBR })}
+                    time={format(parseISO(game.time), "HH'h'", { locale: ptBR })}
+                    currentPlayers={15}
+                    maxPlayers={0}
                   />
                 ))}
               </div>

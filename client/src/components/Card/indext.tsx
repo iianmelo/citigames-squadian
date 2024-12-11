@@ -4,7 +4,7 @@ import { Users } from 'lucide-react';
 type ButtonStatus = "open" | "closed" | "historical";
 
 interface CardTesteProps {
-  title: string;
+  name: string;
   platform: string;
   date: string;
   time: string;
@@ -13,13 +13,13 @@ interface CardTesteProps {
   buttonstatus?: ButtonStatus;
 }
 
-const CardTeste: React.FC<CardTesteProps>= ({title, platform, date, time, currentPlayers, maxPlayers, buttonstatus}) => {
+const CardTeste: React.FC<CardTesteProps>= ({name, platform, date, time, currentPlayers, maxPlayers, buttonstatus}) => {
   const color = buttonstatus === "open" ? "bg-cyan-100 hover:bg-cyan-200" : buttonstatus === "closed" ? "bg-violet-300 hover:bg-violet-400" : "bg-gray-200 hover:bg-gray-300";
   return (
 
       <button className={`flex flex-col rounded-2xl shadow-cardShadow w-60 h-24 py-4 pl-4 ${color} font-light text-sm font-barlow text-textCardColor`}>
 
-        <h1 className="leading-4 font-medium">{title}</h1>
+        <h1 className="leading-4 font-medium">{name}</h1>
         <p className="my-1">{platform}</p>
 
         <fieldset className="flex flex-row">
