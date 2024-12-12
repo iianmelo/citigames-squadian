@@ -12,11 +12,13 @@ import { ptBR } from "date-fns/locale";
 
 export default function Games() {
   interface Game {
+    id: number;
     name: string;
     platform: string;
     date: string;
     time: string;
     currentPlayers: number;
+    matches_qtd: number;
   }
 
   const [games, setGames] = React.useState<Game[]>([]);
@@ -35,6 +37,10 @@ export default function Games() {
 
     fetchGames();
   }, []);
+
+  const handleClick = (id: number) => () => {
+    console.log(id);
+  };
 
   return (
     <div className="flex flex-row">
@@ -56,13 +62,18 @@ export default function Games() {
               <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-2">
                 {games.map((game, index) => (
                   <CardTeste
+                    id={game.id}
                     key={index}
                     name={game.name}
                     platform={game.platform}
-                    date={format(parseISO(game.date), "dd/MM/yyyy", { locale: ptBR })}
-                    time={format(parseISO(game.time), "HH'h'", { locale: ptBR })}
-                    currentPlayers={15}
-                    maxPlayers={0}
+                    date={format(parseISO(game.date), "dd/MM/yyyy", {
+                      locale: ptBR,
+                    })}
+                    time={format(parseISO(game.time), "HH'h'", {
+                      locale: ptBR,
+                    })} 
+                    currentPlayers={14}
+                    maxPlayers={game.matches_qtd}
                   />
                 ))}
               </div>
