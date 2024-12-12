@@ -76,6 +76,7 @@ export default class Citi<Entity extends ModelNames> {
         message: Message.INSERTED_IN_DATABASE,
       };
     } catch (error) {
+      console.error("Database Insertion Error:", error); // Log mais detalhado
       Terminal.show(Message.ERROR_INSERTING_DATABASE);
       return {
         httpStatus: 400,

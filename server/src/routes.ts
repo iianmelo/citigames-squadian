@@ -1,13 +1,19 @@
 import express from "express";
-import userController from "./controllers/UserController";
+import PlayerController from "./controllers/PlayerController";
 import MatchesController from "./controllers/MatchesController";
+import UserController from "./controllers/UserController";
 
 const routes = express.Router();
 
-routes.post("/user", userController.create);
-routes.get("/user", userController.get);
-routes.delete("/user/:id", userController.delete);
-routes.patch("/user/:id", userController.update);
+routes.post("/user", UserController.create);
+routes.get("/user", UserController.get);
+routes.delete("/user/:id", UserController.delete);
+routes.patch("/user/:id", UserController.update);
+
+routes.post("/player", PlayerController.create);
+routes.get("/player", PlayerController.get);
+routes.delete("/player/:id", PlayerController.delete);
+routes.patch("/player/:id", PlayerController.update);
 
 routes.post("/match", MatchesController.create);
 routes.get("/match", MatchesController.get);
