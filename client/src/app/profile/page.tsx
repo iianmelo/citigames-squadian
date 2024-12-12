@@ -262,8 +262,9 @@ export default function ProfilePage() {
                     {openGames.length > 0 ? (
                       openGames.map((game, index) => (
                         <CardTeste
+                          id = {index}
                           key={index}
-                          title={game.title}
+                          name={game.title}
                           platform={game.platform}
                           date={game.date}
                           time={game.time}
@@ -290,8 +291,9 @@ export default function ProfilePage() {
                     {closedGames.length > 0 ? (
                       closedGames.map((game, index) => (
                         <CardTeste
+                          id={index}
                           key={index}
-                          title={game.title}
+                          name={game.title}
                           platform={game.platform}
                           date={game.date}
                           time={game.time}
@@ -321,8 +323,9 @@ export default function ProfilePage() {
                   {historicalGames.length > 0 ? (
                     historicalGames.map((game, index) => (
                       <CardTeste
+                        id={index}
                         key={index}
-                        title={game.title}
+                        name={game.title}
                         platform={game.platform}
                         date={game.date}
                         time={game.time}
