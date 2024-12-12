@@ -40,11 +40,11 @@ export default function Sidebar() {
 
         <button
           className="custom-button w-[232px] h-[43px] top-[169px] left-[24px] gap-0"
-          onClick={() => router.push("/detailsPage")}
+          onClick={() => router.push("/profile")}
         >
           <Image
             className="ml-3"
-            src={pathname === "/detailsPage" ? UserOn : UserOff}
+            src={pathname === "/profile" ? UserOn : UserOff}
             alt="Profile"
             width={30}
             height={30}
