@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { ChevronLeft } from "lucide-react";
 import { CircleAlert } from "lucide-react";
@@ -17,7 +17,7 @@ interface MatchData {
   gamelink: string;
 }
 
-const CreatePage: React.FC = () => {
+const CreateGamePage = () => {
   const searchParams = useSearchParams();
   const username = searchParams.get("username");
   const email = searchParams.get("email");
@@ -53,7 +53,6 @@ const CreatePage: React.FC = () => {
   const returnHome = () => {
     router.push("/games");
   };
-
   return (
     <div className="flex flex-row h-screen overflow-y-auto">
       <Sidebar></Sidebar>
@@ -134,7 +133,9 @@ const CreatePage: React.FC = () => {
               <input
                 id="date"
                 type="date"
-                {...register("date", { required: "Este campo é obrigatório" })}
+                {...register("date", {
+                  required: "Este campo é obrigatório",
+                })}
                 className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
                 placeholder="00/00/0000"
               />
@@ -157,7 +158,9 @@ const CreatePage: React.FC = () => {
               <input
                 id="time"
                 type="time"
-                {...register("time", { required: "Este campo é obrigatório" })}
+                {...register("time", {
+                  required: "Este campo é obrigatório",
+                })}
                 className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
               />
               {errors.time && (
@@ -266,4 +269,10 @@ const CreatePage: React.FC = () => {
   );
 };
 
-export default CreatePage;
+const Page = () => (
+  <Suspense fallback={<div>Carregando...</div>}>
+    <CreateGamePage />
+  </Suspense>
+);
+
+export default Page;
