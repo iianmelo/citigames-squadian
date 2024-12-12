@@ -92,10 +92,17 @@ export default class Citi<Entity extends ModelNames> {
    */
   async getAll(): Promise<GetableDatabase<Models[Entity]>> {
     try {
+      const includeUsersOption = this.entity === 'Match' ?  true : false;
+      const includeMatchesOption = this.entity === 'Player' ? true : undefined;
       const values = await prisma[
         this.entity.toLowerCase() as Uncapitalize<Prisma.ModelName>
         //@ts-expect-error
-      ].findMany<Models[Entity]>();
+      ].findMany({
+        include: {
+          users: includeUsersOption, // Inclui os usuários associados a cada partida
+          matches: includeMatchesOption //Inclui as partidas associadas a cada usuário
+        },
+      });
       Terminal.show(Message.GET_ALL_VALUES_FROM_DATABASE);
       return {
         httpStatus: 200,
