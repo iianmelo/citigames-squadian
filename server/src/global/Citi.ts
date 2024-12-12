@@ -149,6 +149,42 @@ export default class Citi<Entity extends ModelNames> {
     }
   }
 
+  async findByField(
+    field: string,
+    value: string
+  ): Promise<FindableDatabaseValue<Models[Entity]>> {
+    try {
+      const foundValues = await prisma[
+        this.entity.toLowerCase() as Uncapitalize<Prisma.ModelName>
+        //@ts-expect-error
+      ].findMany({
+        where: {
+          [field]: value,
+        },
+      });
+
+      if (foundValues.length > 0) {
+        Terminal.show(Message.VALUE_WAS_FOUND);
+        return {
+          httpStatus: 200,
+          value: foundValues,
+        };
+      } else {
+        Terminal.show(Message.VALUE_WAS_NOT_FOUND);
+        return {
+          httpStatus: 404,
+          value: undefined,
+        };
+      }
+    } catch (error) {
+      Terminal.show(Message.VALUE_WAS_NOT_FOUND);
+      return {
+        httpStatus: 500,
+        value: undefined,
+      };
+    }
+  }
+
   /**
    * Atualiza um registro na entidade do banco de dados com os valores fornecidos.
    *
