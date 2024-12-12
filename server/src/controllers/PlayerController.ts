@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
 import { Citi, Crud } from "../global";
+
+const prisma = new PrismaClient();
 
 class PlayerController implements Crud {
   constructor(private readonly citi = new Citi("Player")) {}
@@ -28,6 +31,42 @@ class PlayerController implements Crud {
 
     return response.status(httpStatus).send(value);
   }
+
+  addPlayer = async (request: Request, response: Response) => {
+    const { matchId, playerId } = request.body;
+
+    try {
+      await prisma.match.update({
+        where: { id: Number(matchId) },
+        data: {
+          users: {
+            connect: { id: Number(playerId) },
+          },
+        },
+      });
+      return response.status(200).send({ message: "Player added to match" });
+    } catch (error) {
+      return response.status(400).send({ message: "Error adding player to match" });
+    }
+  };
+
+  removePlayer = async (request: Request, response: Response) => {
+    const { matchId, playerId } = request.body;
+
+    try {
+      await prisma.match.update({
+        where: { id: Number(matchId) },
+        data: {
+          users: {
+            disconnect: { id: Number(playerId) },
+          },
+        },
+      });
+      return response.status(200).send({ message: "Player removed from match" });
+    } catch (error) {
+      return response.status(400).send({ message: "Error removing player from match" });
+    }
+  };
 
   delete = async (request: Request, response: Response) => {
     const { id } = request.params;

@@ -21,5 +21,7 @@ routes.get("/match", MatchesController.get);
 routes.delete("/match/:id", MatchesController.delete);
 routes.patch("/match/:id", MatchesController.update);
 routes.get("/match/:id", MatchesController.getById);
+routes.post("/match/addPlayer", PlayerController.addPlayer); 
+routes.post("/match/removePlayer", PlayerController.removePlayer);
 
 export default routes;
