@@ -3,6 +3,7 @@ import { Citi, Crud } from "../global";
 
 class MatchesController implements Crud {
   constructor(private readonly citi = new Citi("Match")) {}
+  
   create = async (request: Request, response: Response) => {
     const { name, platform, date, time, description, link, matches_qtd } = request.body;
 

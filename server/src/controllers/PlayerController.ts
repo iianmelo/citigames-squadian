@@ -1,27 +1,23 @@
 import { Request, Response } from "express";
 import { Citi, Crud } from "../global";
 
-class userController implements Crud {
-  constructor(private readonly citi = new Citi("UserTable")) {}
-  
+class PlayerController implements Crud {
+  constructor(private readonly citi = new Citi("Player")) {}
+
   create = async (request: Request, response: Response) => {
     const { username, email } = request.body;
 
-    const isAnyUndefined = this.citi.areValuesUndefined(
-      username,
-      email
-    );
+    const isAnyUndefined = this.citi.areValuesUndefined(username, email);
     if (isAnyUndefined) return response.status(400).send();
 
-    const newUser = {  username, email };
-    const { httpStatus, message } = await this.citi.insertIntoDatabase(newUser);
+    const newUserTable = { username, email };
+    const { httpStatus, message } = await this.citi.insertIntoDatabase(newUserTable);
 
     return response.status(httpStatus).send({ message });
   };
 
   get = async (request: Request, response: Response) => {
     const { httpStatus, values } = await this.citi.getAll();
-
     return response.status(httpStatus).send(values);
   };
 
@@ -47,4 +43,4 @@ class userController implements Crud {
     return response.status(httpStatus).send({ messageFromUpdate });
   };
 }
-export default new userController();
+  export default new PlayerController();
