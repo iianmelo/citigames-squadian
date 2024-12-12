@@ -21,6 +21,14 @@ class PlayerController implements Crud {
     return response.status(httpStatus).send(values);
   };
 
+  getByUsername = async (request: Request, response: Response) => {
+    const { username } = request.params;
+
+    const { httpStatus, value } = await this.citi.findByField("username", username);
+
+    return response.status(httpStatus).send(value);
+  }
+
   delete = async (request: Request, response: Response) => {
     const { id } = request.params;
 

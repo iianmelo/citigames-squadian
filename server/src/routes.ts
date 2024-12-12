@@ -12,6 +12,7 @@ routes.patch("/user/:id", UserController.update);
 
 routes.post("/player", PlayerController.create);
 routes.get("/player", PlayerController.get);
+routes.get("/player/:username", PlayerController.getByUsername);
 routes.delete("/player/:id", PlayerController.delete);
 routes.patch("/player/:id", PlayerController.update);
 
