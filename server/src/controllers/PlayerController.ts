@@ -1,28 +1,23 @@
 import { Request, Response } from "express";
 import { Citi, Crud } from "../global";
 
-class UserController implements Crud {
-  constructor(private readonly citi = new Citi("User")) {}
-  
-  create = async (request: Request, response: Response) => {
-    const { firstName, lastName, age } = request.body;
+class PlayerController implements Crud {
+  constructor(private readonly citi = new Citi("Player")) {}
 
-    const isAnyUndefined = this.citi.areValuesUndefined(
-      firstName,
-      lastName,
-      age
-    );
+  create = async (request: Request, response: Response) => {
+    const { username, email } = request.body;
+
+    const isAnyUndefined = this.citi.areValuesUndefined(username, email);
     if (isAnyUndefined) return response.status(400).send();
 
-    const newUser = { firstName, lastName, age };
-    const { httpStatus, message } = await this.citi.insertIntoDatabase(newUser);
+    const newUserTable = { username, email };
+    const { httpStatus, message } = await this.citi.insertIntoDatabase(newUserTable);
 
     return response.status(httpStatus).send({ message });
   };
 
   get = async (request: Request, response: Response) => {
     const { httpStatus, values } = await this.citi.getAll();
-
     return response.status(httpStatus).send(values);
   };
 
@@ -36,9 +31,9 @@ class UserController implements Crud {
 
   update = async (request: Request, response: Response) => {
     const { id } = request.params;
-    const { firstName, lastName, age } = request.body;
+    const { username, email } = request.body;
 
-    const updatedValues = { firstName, lastName, age };
+    const updatedValues = { username, email };
 
     const { httpStatus, messageFromUpdate } = await this.citi.updateValue(
       id,
@@ -48,5 +43,4 @@ class UserController implements Crud {
     return response.status(httpStatus).send({ messageFromUpdate });
   };
 }
-
-export default new UserController();
+  export default new PlayerController();

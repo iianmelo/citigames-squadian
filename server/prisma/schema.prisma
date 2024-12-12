@@ -33,10 +33,10 @@ model Match {
   link String
   matches_qtd Int
 
-  users UserTable[]
+  users Player[]
 }
 
-model UserTable {
+model Player {
   id Int @id @default(autoincrement())
   username String
   email String
