@@ -80,10 +80,23 @@ const CreateGamePage = () => {
       if (response_match.status === 201) {
         console.log("Partida criada com sucesso");
       }
+
+      const response_addPlayer = await axios.post(
+        "http://localhost:3001/match/addPlayer",
+        {
+          matchId: id_match,
+          playerId: id_player,
+        }
+      );
+
+      if (response_addPlayer.status === 200) {
+        console.log("Jogador adicionado com sucesso");
+      }
+
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error(
-          "Erro ao criar a partida ou usuário:",
+          "Erro ao criar a partida, usuário ou linkagem:",
           error.response?.data || error.message
         );
       } else {
