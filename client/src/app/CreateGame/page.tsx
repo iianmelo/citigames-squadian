@@ -4,7 +4,7 @@ import React, { useState, Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { ChevronLeft } from "lucide-react";
 import { CircleAlert } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Sidebar from "@/components/sidebar";
 import axios from "axios";
 
@@ -13,12 +13,16 @@ interface MatchData {
   platform: string;
   date: string;
   time: string;
-  description : string;
+  description: string;
   link: string;
   matches_qtd: number;
 }
 
 const CreateGamePage = () => {
+  const searchParams = useSearchParams();
+  const username = searchParams.get("username");
+  const email = searchParams.get("email");
+
   const {
     register,
     handleSubmit,
@@ -29,7 +33,7 @@ const CreateGamePage = () => {
     platform: "",
     date: "",
     time: "",
-    description : "",
+    description: "",
     link: "",
     matches_qtd: 0,
   });
@@ -46,7 +50,7 @@ const CreateGamePage = () => {
 
     setMatchData(updatedData);
 
-    const postData = {
+    const postDataMatch = {
       name: data.name,
       platform: data.platform,
       date: formattedDateTime,
@@ -55,18 +59,31 @@ const CreateGamePage = () => {
       link: data.link,
       matches_qtd: Number(data.matches_qtd),
     };
-    console.log(postData);
+    console.log(postDataMatch);
 
     try {
-      const response = await axios.post("http://localhost:3001/match", postData);
-      if (response.status === 201) {
+      const response_player = await axios.post("http://localhost:3001/player", {
+        username,
+        email,
+      });
+      const id_player = response_player.data.id;
+      if (response_player.status === 201) {
+        console.log("Usuário criado com sucesso");
+      }
+
+      const response_match = await axios.post(
+        "http://localhost:3001/match",
+        postDataMatch
+      );
+      const id_match = response_match.data.id;
+
+      if (response_match.status === 201) {
         console.log("Partida criada com sucesso");
-        router.push("/games");
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error(
-          "Erro ao criar a partida:",
+          "Erro ao criar a partida ou usuário:",
           error.response?.data || error.message
         );
       } else {

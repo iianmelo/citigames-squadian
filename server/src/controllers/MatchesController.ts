@@ -1,11 +1,16 @@
 import { Request, Response } from "express";
 import { Citi, Crud } from "../global";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 class MatchesController implements Crud {
   constructor(private readonly citi = new Citi("Match")) {}
-  
+
   create = async (request: Request, response: Response) => {
     const { name, platform, date, time, description, link, matches_qtd } = request.body;
+
+    console.log("Dados recebidos no backend:", request.body);
 
     const isAnyUndefined = this.citi.areValuesUndefined(
       name,
@@ -16,12 +21,30 @@ class MatchesController implements Crud {
       link,
       matches_qtd
     );
-    if (isAnyUndefined) return response.status(400).send();
+    if (isAnyUndefined) {
+      console.log("Dados incompletos:", { name, platform, date, time, description, link, matches_qtd });
+      return response.status(400).send({ message: "Dados incompletos" });
+    }
 
-    const newMatch = {  name, platform, date, time, description, link, matches_qtd };
-    const { httpStatus, message } = await this.citi.insertIntoDatabase(newMatch);
+    try {
+      const newMatch = await prisma.match.create({
+        data: {
+          name,
+          platform,
+          date: new Date(date),
+          time: new Date(time),
+          description,
+          link,
+          matches_qtd,
+        },
+      });
 
-    return response.status(httpStatus).send({ message });
+      console.log("Partida criada com sucesso:", newMatch);
+      return response.status(201).send(newMatch);
+    } catch (error) {
+      console.error("Erro ao criar a partida:", error);
+      return response.status(400).send({ message: "Erro ao criar a partida" });
+    }
   };
 
   get = async (request: Request, response: Response) => {
