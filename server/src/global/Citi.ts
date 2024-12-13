@@ -93,7 +93,7 @@ export default class Citi<Entity extends ModelNames> {
   async getAll(): Promise<GetableDatabase<Models[Entity]>> {
     try {
       const includeUsersOption = this.entity === 'Match' ?  true : false;
-      const includeMatchesOption = this.entity === 'Player' ? true : undefined;
+      const includeMatchesOption = this.entity === 'Player' ? true : false;
       const values = await prisma[
         this.entity.toLowerCase() as Uncapitalize<Prisma.ModelName>
         //@ts-expect-error
@@ -154,12 +154,16 @@ export default class Citi<Entity extends ModelNames> {
     value: string
   ): Promise<FindableDatabaseValue<Models[Entity]>> {
     try {
+      const includeMatchesOption = this.entity === 'Player' ? true : false;
       const foundValues = await prisma[
         this.entity.toLowerCase() as Uncapitalize<Prisma.ModelName>
         //@ts-expect-error
       ].findMany({
         where: {
           [field]: value,
+        },
+        include: {
+          matches: includeMatchesOption //Inclui as partidas associadas a cada usuário
         },
       });
 
