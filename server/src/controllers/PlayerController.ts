@@ -10,13 +10,31 @@ class PlayerController implements Crud {
   create = async (request: Request, response: Response) => {
     const { username, email } = request.body;
 
+    console.log("Dados recebidos no backend:", request.body);
+
     const isAnyUndefined = this.citi.areValuesUndefined(username, email);
-    if (isAnyUndefined) return response.status(400).send();
+    if (isAnyUndefined) {
+      console.log("Dados incompletos:", {
+        username,
+        email,
+      });
+      return response.status(400).send({ message: "Dados incompletos" });
+    }
 
-    const newUserTable = { username, email };
-    const { httpStatus, message } = await this.citi.insertIntoDatabase(newUserTable);
+    try {
+      const newPlayer = await prisma.player.create({
+        data: {
+          username,
+          email,
+        },
+      });
 
-    return response.status(httpStatus).send({ message });
+      console.log("Usuário criado com sucesso:", newPlayer);
+      return response.status(201).send(newPlayer);
+    } catch (error) {
+      console.error("Erro ao criar o usuário:", error);
+      return response.status(400).send({ message: "Erro ao criar o usuário:" });
+    }
   };
 
   get = async (request: Request, response: Response) => {
@@ -27,10 +45,13 @@ class PlayerController implements Crud {
   getByUsername = async (request: Request, response: Response) => {
     const { username } = request.params;
 
-    const { httpStatus, value } = await this.citi.findByField("username", username);
+    const { httpStatus, value } = await this.citi.findByField(
+      "username",
+      username
+    );
 
     return response.status(httpStatus).send(value);
-  }
+  };
 
   addPlayer = async (request: Request, response: Response) => {
     const { matchId, playerId } = request.body;
@@ -46,7 +67,9 @@ class PlayerController implements Crud {
       });
       return response.status(200).send({ message: "Player added to match" });
     } catch (error) {
-      return response.status(400).send({ message: "Error adding player to match" });
+      return response
+        .status(400)
+        .send({ message: "Error adding player to match" });
     }
   };
 
@@ -62,9 +85,13 @@ class PlayerController implements Crud {
           },
         },
       });
-      return response.status(200).send({ message: "Player removed from match" });
+      return response
+        .status(200)
+        .send({ message: "Player removed from match" });
     } catch (error) {
-      return response.status(400).send({ message: "Error removing player from match" });
+      return response
+        .status(400)
+        .send({ message: "Error removing player from match" });
     }
   };
 
@@ -90,4 +117,4 @@ class PlayerController implements Crud {
     return response.status(httpStatus).send({ messageFromUpdate });
   };
 }
-  export default new PlayerController();
+export default new PlayerController();
