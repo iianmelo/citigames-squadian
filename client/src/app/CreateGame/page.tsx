@@ -53,15 +53,12 @@ const CreateGamePage = () => {
       time: formattedDateTime,
       description: data.description,
       link: data.link,
-      matches_qtd: data.matches_qtd,
+      matches_qtd: Number(data.matches_qtd),
     };
     console.log(postData);
 
     try {
-      const response = await axios.post(
-        "http://localhost:3001/match",
-        postData
-      );
+      const response = await axios.post("http://localhost:3001/match", postData);
       if (response.status === 201) {
         console.log("Partida criada com sucesso");
         router.push("/games");
