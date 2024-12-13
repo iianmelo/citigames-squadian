@@ -4,45 +4,78 @@ import React, { useState, Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { ChevronLeft } from "lucide-react";
 import { CircleAlert } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Sidebar from "@/components/sidebar";
+import axios from "axios";
 
 interface MatchData {
-  title: string;
+  name: string;
   platform: string;
   date: string;
   time: string;
-  maxplayers: number;
-  discription: string;
-  gamelink: string;
+  description : string;
+  link: string;
+  matches_qtd: number;
 }
 
 const CreateGamePage = () => {
-  const searchParams = useSearchParams();
-  const username = searchParams.get("username");
-  const email = searchParams.get("email");
-
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<MatchData>({ mode: "onChange" });
   const [matchData, setMatchData] = useState<MatchData>({
-    title: "",
+    name: "",
+    platform: "",
     date: "",
     time: "",
-    platform: "",
-    maxplayers: 0,
-    discription: "",
-    gamelink: "",
+    description : "",
+    link: "",
+    matches_qtd: 0,
   });
 
-  const onSubmit = (data: MatchData) => {
-    const formattedDate = data.date.split("-").reverse().join("/");
-    const updatedData = { ...data, date: formattedDate };
+  const onSubmit = async (data: MatchData) => {
+    const formattedDateTime = new Date(
+      `${data.date}T${data.time}`
+    ).toISOString();
+    const updatedData = {
+      ...data,
+      date: formattedDateTime,
+      time: formattedDateTime,
+    };
 
     setMatchData(updatedData);
-    console.log("Dados da partida formatados:", updatedData);
+
+    const postData = {
+      name: data.name,
+      platform: data.platform,
+      date: formattedDateTime,
+      time: formattedDateTime,
+      description: data.description,
+      link: data.link,
+      matches_qtd: data.matches_qtd,
+    };
+    console.log(postData);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/match",
+        postData
+      );
+      if (response.status === 201) {
+        console.log("Partida criada com sucesso");
+        router.push("/games");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(
+          "Erro ao criar a partida:",
+          error.response?.data || error.message
+        );
+      } else {
+        console.error("Erro inesperado:", error);
+      }
+    }
   };
 
   const router = useRouter();
@@ -53,10 +86,11 @@ const CreateGamePage = () => {
   const returnHome = () => {
     router.push("/games");
   };
+
   return (
-    <div className="flex flex-row h-screen w-screen">
+    <div className="flex flex-row h-screen overflow-y-auto">
       <Sidebar></Sidebar>
-      <main className="flex min-h-screen items-center w-full flex-col flex-grow justify-center overflow-y-auto h-full bg-[#F5F5F5] p-6">
+      <main className="flex min-h-screen items-center flex-col flex-grow justify-center overflow-y-auto h-full bg-[#F5F5F5] p-6">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex w-full  flex-col max-w-[64rem] font-barlow mt-20 cgcustom:mt-0"
@@ -80,15 +114,15 @@ const CreateGamePage = () => {
                 <input
                   id="title"
                   type="text"
-                  {...register("title", {
+                  {...register("name", {
                     required: "Este campo é obrigatório",
                   })}
                   className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 w-full h-12 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder"
                   placeholder="Jogo"
                 />
-                {errors.title && (
+                {errors.name && (
                   <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
-                    {errors.title.message}
+                    {errors.name.message}
                     <CircleAlert
                       size={14}
                       strokeWidth={1.7}
@@ -181,16 +215,16 @@ const CreateGamePage = () => {
               </label>
               <input
                 id="maxplayers"
-                type="maxplayers"
-                {...register("maxplayers", {
+                type="number"
+                {...register("matches_qtd", {
                   required: "Este campo é obrigatório",
                 })}
                 className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
                 placeholder="0"
               />
-              {errors.maxplayers && (
+              {errors.matches_qtd && (
                 <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
-                  {errors.maxplayers.message}
+                  {errors.matches_qtd.message}
                   <CircleAlert
                     size={14}
                     strokeWidth={1.7}
@@ -208,15 +242,15 @@ const CreateGamePage = () => {
             <input
               id="gamelink"
               type="text"
-              {...register("gamelink", {
+              {...register("link", {
                 required: "Este campo é obrigatório",
               })}
               className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
               placeholder="Link da partida"
             />
-            {errors.gamelink && (
+            {errors.link && (
               <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
-                {errors.gamelink.message}
+                {errors.link.message}
                 <CircleAlert
                   size={14}
                   strokeWidth={1.7}
@@ -227,20 +261,20 @@ const CreateGamePage = () => {
           </div>
 
           <div className="mb-4 w-full">
-            <label htmlFor="discription" className="block font-medium mb-2">
+            <label htmlFor="description" className="block font-medium mb-2">
               Descrição
             </label>
             <textarea
-              id="discription"
-              {...register("discription", {
+              id="description"
+              {...register("description", {
                 required: "Este campo é obrigatório",
               })}
               className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-36 resize-none"
               placeholder="Descrição da partida"
             />
-            {errors.discription && (
+            {errors.description && (
               <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
-                {errors.discription.message}
+                {errors.description.message}
                 <CircleAlert
                   size={14}
                   strokeWidth={1.7}
@@ -274,6 +308,5 @@ const Page = () => (
     <CreateGamePage />
   </Suspense>
 );
-
 
 export default Page;
