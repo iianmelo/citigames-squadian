@@ -54,9 +54,9 @@ const CreateGamePage = () => {
     router.push("/games");
   };
   return (
-    <div className="flex flex-row h-screen overflow-y-auto">
+    <div className="flex flex-row h-screen w-screen">
       <Sidebar></Sidebar>
-      <main className="flex min-h-screen items-center flex-col flex-grow justify-center overflow-y-auto h-full bg-[#F5F5F5] p-6">
+      <main className="flex min-h-screen items-center w-full flex-col flex-grow justify-center overflow-y-auto h-full bg-[#F5F5F5] p-6">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex w-full  flex-col max-w-[64rem] font-barlow mt-20 cgcustom:mt-0"

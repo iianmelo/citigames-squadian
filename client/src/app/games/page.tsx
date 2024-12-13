@@ -43,7 +43,7 @@ export default function Games() {
   };
 
   return (
-    <div className="flex flex-row">
+    <div className="flex h-screen w-screen flex-row">
       <Sidebar />
       <div className="flex flex-col h-screen w-screen bg-loginBg">
         <TopBar isReturnEnabled={false} />

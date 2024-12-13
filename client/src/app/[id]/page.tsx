@@ -63,9 +63,9 @@ function DetailsPage({
   };
 
   return (
-    <div className="flex h-screen overflow-y-auto">
-      <Sidebar />
-      <div className="flex flex-col flex-grow overflow-y-auto h-full bg-[#F5F5F5]">
+    <div className="flex flex-row w-screen h-screen">
+      <Sidebar/>
+      <div className="flex flex-col flex-grow overflow-y-auto w-full h-full bg-[#F5F5F5]">
         <Topbar isReturnEnabled={true} />
         <div className="flex flex-col gap-[70px] gdcustom:justify-center gdcustom:gap-0 gdcustom:flex-row flex-grow items-center gdcustom:items-start justify-center bg-[#F5F5F5] pr-[40px] pl-16 py-[10vh]">
           <div className="flex flex-col items-center gdcustom:items-start flex-grow max-w-md w-full gdcustom:pr-0 gdcustom:mr-[60px]">
@@ -158,7 +158,7 @@ export default function Page() {
     }
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p></p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return details ? <DetailsPage {...details} /> : <p>No details available</p>;
