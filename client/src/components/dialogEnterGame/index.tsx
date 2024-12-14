@@ -1,11 +1,12 @@
 "use client";
 
 import { Dialog, DialogContent, DialogTrigger, DialogClose } from "@/components/ui/dialog";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import ButtonGame from "@/components/Button";
 import rocketCitiLogo from "@/assets/rocketCitiLogo.png";
 import {} from "@/assets";
+import axios from 'axios';
 
 type RoomStatus = "available" | "full" | "inside";
 
@@ -31,9 +32,34 @@ export default function DialogEnterGame({
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const [players, setPlayers] = useState<LoginData[]>([]);
+  
+  const fetchPlayers = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/player");
+      setPlayers(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  const implement = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:3001/player", formData);
+      const playerId = response.data.id;
+      const url = window.location.href;
+      const matchId = url.split('/').pop();
+      console.log("Player ID:", playerId);
+      console.log("Match ID:", matchId);
+      await axios.post("http://localhost:3001/match/addPlayer", {playerId, matchId: Number(matchId)});
+      console.log("Player added successfully");
+      fetchPlayers();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className="flex w-full justify-center">
       <Dialog>
@@ -51,9 +77,8 @@ export default function DialogEnterGame({
               height={125}
               quality={100}
             />
-
             <form
-              onSubmit={handleSubmit}
+              onSubmit={implement}
               className="flex flex-col mt-8 w-80 gap-8"
             >
               <div>
@@ -80,6 +105,7 @@ export default function DialogEnterGame({
                   required
                 />
               </div>
+
               <DialogClose asChild>
                 <button
                   type="submit"

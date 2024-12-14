@@ -42,9 +42,10 @@ function DetailsPage({
   link,
   description,
   matches_qtd,
-  players,
+  players = [],
 }: DetailsPageProps) {
-  const currentPlayers = 10;
+  {/*const currentPlayers = players.length;*/}
+  const currentPlayers = 3;
   const formattedDate = format(new Date(date), "dd/MM/yyyy", { locale: ptBR });
   const formattedTime = format(new Date(date), "HH'h'");
 
@@ -117,10 +118,23 @@ function DetailsPage({
 
             <ScrollArea className={`mt-4 h-[500px] ${bgColors[roomStatus]} p-5 w-full overflow-y-auto rounded-2xl`} >
               <div className="text-[16px] leading-[19.2px] text-[#454545] p-1 font-barlow">
-                
+                {/*
                   <div className="flex items-center gap-2 mb-2">
                     <CircleUserRound size={24} />
                     <span>sokdkjs</span>
+                  </div>
+                  */}
+                  <div className="flex items-center gap-2 mb-2">
+                    <CircleUserRound size={24} />
+                    <span>Ian</span>
+                  </div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <CircleUserRound size={24} />
+                    <span>Felipe</span>
+                  </div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <CircleUserRound size={24} />
+                    <span>Ramon</span>
                   </div>
               
               </div>
