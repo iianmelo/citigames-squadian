@@ -1,18 +1,26 @@
 "use client";
 
-import { useRouter } from 'next/navigation';
-import { Button } from "../ui/button";
+import { forwardRef, type ButtonHTMLAttributes } from "react";
 import { Plus } from "lucide-react";
+import { Button } from "../ui/button";
 
-export default function CreateButton() {
-  const router = useRouter();
-
+const CreateButton = forwardRef<
+  HTMLButtonElement,
+  ButtonHTMLAttributes<HTMLButtonElement>
+>(({ className, ...props }, ref) => {
   return (
     <Button
-      className="bg-green [&_svg]:size-10 rounded-2xl h-15 px-2 py-2 hover:bg-green/85"
-      onClick={() => router.push('')}
+      ref={ref}
+      type="button"
+      aria-label="Criar partida"
+      className={`h-14 w-14 rounded-2xl bg-green px-0 text-white shadow-custom hover:bg-greenHover focus-visible:ring-2 focus-visible:ring-white ${className ?? ""}`}
+      {...props}
     >
-      <Plus strokeWidth={1.5} />
+      <Plus className="size-8" strokeWidth={1.5} />
     </Button>
   );
-}
+});
+
+CreateButton.displayName = "CreateButton";
+
+export default CreateButton;

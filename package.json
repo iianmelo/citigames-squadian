@@ -1,4 +1,11 @@
 {
+  "scripts": {
+    "dev": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "lint": "npm --prefix client run lint",
+    "typecheck": "npm --prefix client run typecheck",
+    "start": "npm --prefix client run start"
+  },
   "dependencies": {
     "axios": "^1.7.9",
     "react-hook-form": "^7.53.2",

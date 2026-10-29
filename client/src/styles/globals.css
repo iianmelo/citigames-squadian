@@ -115,12 +115,21 @@
 .custom-button {
   display: flex;
   width: 100%;
-  background: #F5F5F566;
+  background: #f5f5f566;
   border-radius: 4px;
   align-items: center;
   gap: 10px;
+  transition: background-color 150ms ease;
 }
 
 .custom-button:hover {
   background: #4bb8d1;
+}
+
+.custom-button[aria-current="page"] {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.custom-button[aria-current="page"]:hover {
+  background: rgba(255, 255, 255, 0.4);
 }

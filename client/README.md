@@ -1,38 +1,10 @@
-<p align="center">
-  <a href="http://citi.org.br">
-    <img src="https://raw.githubusercontent.com/jrmmendes/citi-doc-utils/master/citi_black.png" alt="CITi logo"/>
-  </a>
-</p>
-<p align="center">
-  <img src="https://img.shields.io/badge/staging branch-develop-pink" alt="staging">
-  <img src="https://img.shields.io/badge/production branch-main-blue" alt="production">
-</p>
+# CITi Games — client
 
-# Next.js Boilerplate
-Description
+Interface em Next.js do protótipo. A documentação do projeto, o contexto e as capturas de tela estão no [README da raiz](../README.md).
 
-## Running the project
-
-1. Be sure you have **node** and **yarn** (or **npm**, if you use it) installed.
-2. Clone the repository by running
-```bash
-git clone git@github.com:CITi-UFPE/citiplus-client.git
-```
-3. Install all the dependencies by running
 ```bash
 yarn install
-# or
-npm install
-```
-4. To run the development server, run
-```bash
 yarn dev
-# or
-npm dev
 ```
-5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Development team
-
-## Design team
-
+App em [http://localhost:3000](http://localhost:3000).

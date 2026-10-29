@@ -1,339 +1,247 @@
 "use client";
 
-import React, { useState, Suspense } from "react";
+import { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
-import { ChevronLeft } from "lucide-react";
-import { CircleAlert } from "lucide-react";
+import { ChevronLeft, CircleAlert } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Sidebar from "@/components/sidebar";
-import axios from "axios";
+import AppShell from "@/components/AppShell";
+import { useMatches } from "@/components/MatchProvider";
+import type { MatchDraft } from "@/lib/matches";
 
-interface MatchData {
-  name: string;
-  platform: string;
-  date: string;
-  time: string;
-  description: string;
-  link: string;
-  matches_qtd: number;
+function FieldError({ message }: { message?: string }) {
+  if (!message) return null;
+  return (
+    <span className="mt-1 inline-flex items-center gap-1 text-sm text-redButton">
+      {message}
+      <CircleAlert size={14} strokeWidth={1.7} aria-hidden />
+    </span>
+  );
 }
 
-const CreateGamePage = () => {
+const inputClass =
+  "h-12 w-full rounded-xl border border-inputBorder bg-white px-3 font-barlow text-base focus:border-inputFocusBorder focus:bg-inputFocusBg focus:outline-none focus:ring-2 focus:ring-[#58CBFB]";
+
+function CreateGamePage() {
   const searchParams = useSearchParams();
-  const username = searchParams.get("username");
-  const email = searchParams.get("email");
+  const username = searchParams.get("username") ?? "";
+  const email = searchParams.get("email") ?? "";
+  const router = useRouter();
+  const { createMatch } = useMatches();
+  const [submitError, setSubmitError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<MatchData>({ mode: "onChange" });
-  const [matchData, setMatchData] = useState<MatchData>({
-    name: "",
-    platform: "",
-    date: "",
-    time: "",
-    description: "",
-    link: "",
-    matches_qtd: 0,
-  });
+  } = useForm<MatchDraft>({ mode: "onChange" });
 
-  const onSubmit = async (data: MatchData) => {
-    const formattedDateTime = new Date(
-      `${data.date}T${data.time}`
-    ).toISOString();
-    const updatedData = {
-      ...data,
-      date: formattedDateTime,
-      time: formattedDateTime,
-    };
-
-    setMatchData(updatedData);
-
-    const postDataMatch = {
-      name: data.name,
-      platform: data.platform,
-      date: formattedDateTime,
-      time: formattedDateTime,
-      description: data.description,
-      link: data.link,
-      matches_qtd: Number(data.matches_qtd),
-    };
-    console.log(postDataMatch);
+  const onSubmit = async (data: MatchDraft) => {
+    setSubmitError("");
+    setSubmitting(true);
+    const formattedDateTime = new Date(`${data.date}T${data.time}`).toISOString();
 
     try {
-      const response_player = await axios.post("http://localhost:3001/player", {
-        username,
-        email,
-      });
-      const id_player = response_player.data.id;
-      if (response_player.status === 201) {
-        console.log("Usuário criado com sucesso");
-      }
-
-      const response_match = await axios.post(
-        "http://localhost:3001/match",
-        postDataMatch
-      );
-      const id_match = response_match.data.id;
-
-      if (response_match.status === 201) {
-        console.log("Partida criada com sucesso");
-      }
-
-      const response_addPlayer = await axios.post(
-        "http://localhost:3001/match/addPlayer",
+      const match = await createMatch(
         {
-          matchId: id_match,
-          playerId: id_player,
+          ...data,
+          date: formattedDateTime,
+          time: formattedDateTime,
+          matches_qtd: Number(data.matches_qtd),
+        },
+        {
+          username: username || "Convidado",
+          email: email || "convidado@citigames.local",
         }
       );
-
-      if (response_addPlayer.status === 200) {
-        console.log("Jogador adicionado com sucesso");
-      }
-
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error(
-          "Erro ao criar a partida, usuário ou linkagem:",
-          error.response?.data || error.message
-        );
-      } else {
-        console.error("Erro inesperado:", error);
-      }
+      router.push(`/${match.id}`);
+    } catch {
+      setSubmitError("Não foi possível criar a partida. Tente novamente.");
+      setSubmitting(false);
     }
   };
 
-  const router = useRouter();
-  const handleReturn = () => {
-    router.back();
-  };
-
-  const returnHome = () => {
-    router.push("/games");
-  };
+  const today = new Date().toISOString().slice(0, 10);
 
   return (
-    <div className="flex flex-row h-screen overflow-y-auto">
-      <Sidebar></Sidebar>
-      <main className="flex min-h-screen items-center flex-col flex-grow justify-center overflow-y-auto h-full bg-[#F5F5F5] p-6">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex w-full  flex-col max-w-[64rem] font-barlow mt-20 cgcustom:mt-0"
-        >
-          <h2 className="text-[25px] cgcustom:text-4xl w-full font-semibold mb-2 cgcustom:mb-12 flex">
-            <button onClick={handleReturn} className="flex items-center">
-              <ChevronLeft
-                size={30}
-                strokeWidth={2}
-                className="inline-block mr-1 cursor-pointer"
-              />
+    <AppShell>
+      <main className="mx-auto w-full max-w-5xl px-4 py-6 md:px-10 md:py-10">
+        <form onSubmit={handleSubmit(onSubmit)} className="font-barlow">
+          <h1 className="mb-6 flex items-center text-2xl font-semibold md:text-4xl">
+            <button
+              type="button"
+              onClick={() => router.back()}
+              aria-label="Voltar"
+              className="mr-1 inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#58CBFB]"
+            >
+              <ChevronLeft size={28} />
             </button>
             Criar Partida
-          </h2>
-          <div className="w-full">
-            <fieldset className="w-full justify-between flex mb-4 flex-col cgcustom:flex-row gap-4 cgcustom:gap-14">
-              <div className="flex-auto">
-                <label htmlFor="title" className="block font-medium mb-2">
-                  Nome do jogo
-                </label>
-                <input
-                  id="title"
-                  type="text"
-                  {...register("name", {
-                    required: "Este campo é obrigatório",
-                  })}
-                  className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 w-full h-12 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder"
-                  placeholder="Jogo"
-                />
-                {errors.name && (
-                  <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
-                    {errors.name.message}
-                    <CircleAlert
-                      size={14}
-                      strokeWidth={1.7}
-                      className="inline-block mr-1"
-                    />
-                  </span>
-                )}
-              </div>
+          </h1>
 
-              <div className="flex-auto">
-                <label htmlFor="platform" className="block font-medium  mb-2">
-                  Plataforma de reunião
-                </label>
-                <input
-                  id="platform"
-                  type="text"
-                  {...register("platform", {
-                    required: "Este campo é obrigatório",
-                  })}
-                  className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 h-12 w-full focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder"
-                  placeholder="Plataforma"
-                />
-                {errors.platform && (
-                  <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
-                    {errors.platform.message}
-                    <CircleAlert
-                      size={14}
-                      strokeWidth={1.7}
-                      className="inline-block mr-1"
-                    />
-                  </span>
-                )}
-              </div>
-            </fieldset>
+          {username ? (
+            <p className="mb-6 text-sm text-[#454545]">
+              Organizando como{" "}
+              <span className="font-medium text-black">{username}</span>
+            </p>
+          ) : null}
+
+          <div className="grid gap-4 md:grid-cols-2 md:gap-10">
+            <div>
+              <label htmlFor="title" className="mb-2 block font-medium">
+                Nome do jogo
+              </label>
+              <input
+                id="title"
+                type="text"
+                placeholder="Jogo"
+                aria-invalid={errors.name ? true : undefined}
+                className={inputClass}
+                {...register("name", { required: "Este campo é obrigatório" })}
+              />
+              <FieldError message={errors.name?.message} />
+            </div>
+            <div>
+              <label htmlFor="platform" className="mb-2 block font-medium">
+                Plataforma de reunião
+              </label>
+              <input
+                id="platform"
+                type="text"
+                placeholder="Plataforma"
+                aria-invalid={errors.platform ? true : undefined}
+                className={inputClass}
+                {...register("platform", {
+                  required: "Este campo é obrigatório",
+                })}
+              />
+              <FieldError message={errors.platform?.message} />
+            </div>
           </div>
 
-          <fieldset className="w-full flex  flex-col cgcustom:flex-row cgcustom:gap-14">
-            <div className="mb-4 flex-auto">
-              <label htmlFor="date" className="block font-medium mb-2">
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            <div>
+              <label htmlFor="date" className="mb-2 block font-medium">
                 Data da Partida
               </label>
               <input
                 id="date"
                 type="date"
-                {...register("date", {
-                  required: "Este campo é obrigatório",
-                })}
-                className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
-                placeholder="00/00/0000"
+                min={today}
+                className={inputClass}
+                aria-invalid={errors.date ? true : undefined}
+                {...register("date", { required: "Este campo é obrigatório" })}
               />
-              {errors.date && (
-                <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
-                  {errors.date.message}
-                  <CircleAlert
-                    size={14}
-                    strokeWidth={1.7}
-                    className="inline-block mr-1"
-                  />
-                </span>
-              )}
+              <FieldError message={errors.date?.message} />
             </div>
-
-            <div className="mb-4">
-              <label htmlFor="time" className="block font-medium mb-2">
+            <div>
+              <label htmlFor="time" className="mb-2 block font-medium">
                 Hora da Partida
               </label>
               <input
                 id="time"
                 type="time"
-                {...register("time", {
-                  required: "Este campo é obrigatório",
-                })}
-                className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
+                className={inputClass}
+                aria-invalid={errors.time ? true : undefined}
+                {...register("time", { required: "Este campo é obrigatório" })}
               />
-              {errors.time && (
-                <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
-                  {errors.time.message}
-                  <CircleAlert
-                    size={14}
-                    strokeWidth={1.7}
-                    className="inline-block mr-1"
-                  />
-                </span>
-              )}
+              <FieldError message={errors.time?.message} />
             </div>
-
-            <div className="mb-4">
-              <label htmlFor="maxplayers" className="block font-medium mb-2">
+            <div>
+              <label htmlFor="maxplayers" className="mb-2 block font-medium">
                 Quantidade máxima de pessoas
               </label>
               <input
                 id="maxplayers"
                 type="number"
+                min={2}
+                placeholder="0"
+                className={inputClass}
+                aria-invalid={errors.matches_qtd ? true : undefined}
                 {...register("matches_qtd", {
                   required: "Este campo é obrigatório",
+                  valueAsNumber: true,
+                  min: { value: 2, message: "Informe ao menos 2 pessoas" },
+                  validate: (value) =>
+                    Number.isFinite(value) || "Informe um número válido",
                 })}
-                className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
-                placeholder="0"
               />
-              {errors.matches_qtd && (
-                <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
-                  {errors.matches_qtd.message}
-                  <CircleAlert
-                    size={14}
-                    strokeWidth={1.7}
-                    className="inline-block mr-1"
-                  />
-                </span>
-              )}
+              <FieldError message={errors.matches_qtd?.message} />
             </div>
-          </fieldset>
+          </div>
 
-          <div className="mb-4 w-full">
-            <label htmlFor="gamelink" className="block font-medium mb-2">
+          <div className="mt-4">
+            <label htmlFor="gamelink" className="mb-2 block font-medium">
               Link da partida
             </label>
             <input
               id="gamelink"
-              type="text"
+              type="url"
+              placeholder="https://"
+              className={inputClass}
+              aria-invalid={errors.link ? true : undefined}
               {...register("link", {
                 required: "Este campo é obrigatório",
+                pattern: {
+                  value: /^https?:\/\/.+/i,
+                  message: "Informe um link começando com http:// ou https://",
+                },
               })}
-              className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-12"
-              placeholder="Link da partida"
             />
-            {errors.link && (
-              <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
-                {errors.link.message}
-                <CircleAlert
-                  size={14}
-                  strokeWidth={1.7}
-                  className="inline-block mr-1"
-                />
-              </span>
-            )}
+            <FieldError message={errors.link?.message} />
           </div>
 
-          <div className="mb-4 w-full">
-            <label htmlFor="description" className="block font-medium mb-2">
+          <div className="mt-4">
+            <label htmlFor="description" className="mb-2 block font-medium">
               Descrição
             </label>
             <textarea
               id="description"
+              placeholder="Descrição da partida"
+              className={`${inputClass} h-36 resize-none py-3`}
+              aria-invalid={errors.description ? true : undefined}
               {...register("description", {
                 required: "Este campo é obrigatório",
               })}
-              className="bg-white border border-inputBorder rounded-xl bg-inputBg px-3 py-2 focus:outline-none focus:bg-inputFocusBg focus:border-inputFocusBorder w-full h-36 resize-none"
-              placeholder="Descrição da partida"
             />
-            {errors.description && (
-              <span className="flex text-redButton text-sm font-normal items-center gap-1.5">
-                {errors.description.message}
-                <CircleAlert
-                  size={14}
-                  strokeWidth={1.7}
-                  className="inline-block mr-1"
-                />
-              </span>
-            )}
+            <FieldError message={errors.description?.message} />
           </div>
 
-          <div className="w-full flex justify-end mt-[2rem] mb-[2.5rem]">
+          {submitError ? (
+            <p className="mt-4 text-sm text-redButton" role="alert">
+              {submitError}
+            </p>
+          ) : null}
+
+          <div className="mt-8 flex justify-end">
             <button
-              onClick={returnHome}
               type="submit"
-              className={`w-80 h-12 bg-cardGray text-xl text-white leading-6 rounded-2xl shadow-custom font-bold font-barlow ${
-                isValid ? "bg-green hover:bg-greenHover" : "bg-cardGray"
+              disabled={!isValid || submitting}
+              className={`h-12 w-full max-w-xs rounded-2xl font-barlow text-xl font-bold text-white shadow-custom focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#58CBFB] focus-visible:ring-offset-2 disabled:cursor-not-allowed ${
+                isValid && !submitting
+                  ? "bg-green hover:bg-greenHover"
+                  : "bg-grayButton"
               }`}
-              disabled={!isValid}
             >
-              Criar Partida
+              {submitting ? "Criando..." : "Criar Partida"}
             </button>
           </div>
         </form>
-        <div className="mb-4"></div>
       </main>
-    </div>
+    </AppShell>
   );
-};
+}
 
-const Page = () => (
-  <Suspense fallback={<div>Carregando...</div>}>
-    <CreateGamePage />
-  </Suspense>
-);
-
-export default Page;
+export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center font-barlow text-[#454545]">
+          Carregando...
+        </div>
+      }
+    >
+      <CreateGamePage />
+    </Suspense>
+  );
+}

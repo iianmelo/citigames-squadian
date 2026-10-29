@@ -1,96 +1,76 @@
 "use client";
 
-import Sidebar from "@/components/sidebar";
-import TopBar from "@/components/topbar";
-import * as React from "react";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import CardTeste from "@/components/Card/indext";
+import AppShell from "@/components/AppShell";
+import CardTeste from "@/components/Card";
 import DialogCreateGame from "@/components/dialogCreateGame";
-import axios from "axios";
-import { format, parseISO } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import EmptyState from "@/components/EmptyState";
+import { useMatches } from "@/components/MatchProvider";
+import { formatMatchDate, formatMatchTime, startOfDay } from "@/lib/format";
 
 export default function Games() {
-  interface Game {
-    id: number;
-    name: string;
-    platform: string;
-    date: string;
-    time: string;
-    currentPlayers: number;
-    matches_qtd: number;
-  }
-
-  const [games, setGames] = React.useState<Game[]>([]);
-  const [error, setError] = React.useState("");
-
-  React.useEffect(() => {
-    const fetchGames = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/match");
-        setGames(response.data);
-      } catch (err) {
-        setError("Erro ao carregar as partidas. Tente novamente mais tarde.");
-        console.error(err);
-      }
-    };
-
-    fetchGames();
-  }, []);
-
-  const handleClick = (id: number) => () => {
-    console.log(id);
-  };
+  const { matches, loading, source } = useMatches();
+  const today = startOfDay(new Date());
+  const upcoming = matches
+    .filter((game) => new Date(game.date).getTime() >= today.getTime())
+    .sort((a, b) => +new Date(a.date) - +new Date(b.date));
 
   return (
-    <div className="flex h-screen w-screen flex-row">
-      <Sidebar />
-      <div className="flex flex-col h-screen w-screen bg-loginBg">
-        <TopBar isReturnEnabled={false} />
-
-        <div className="flex flex-col flex-grow h-[calc(100vh-152px)]">
-          <h1 className="font-barlow font-normal text-[1.75rem] leading-9 mt-8 mb-4 ml-[4.5rem] w-fit">
+    <AppShell>
+      <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-10 md:py-8">
+        <div className="flex items-center justify-between gap-4">
+          <h1 className="font-barlow text-2xl font-medium leading-tight md:text-[1.75rem]">
             Próximas partidas
           </h1>
-
-          <ScrollArea className="h-full mx-12 rounded-md p-0 mb-8">
-            {error ? (
-              <div className="flex justify-center items-center h-40">
-                <p className="text-2xl text-red-500">{error}</p>
-              </div>
-            ) : games.length > 0 ? (
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 p-2">
-                {games.map((game, index) => (
-                  <CardTeste
-                    id={game.id}
-                    key={index}
-                    name={game.name}
-                    platform={game.platform}
-                    date={format(parseISO(game.date), "dd/MM/yyyy", {
-                      locale: ptBR,
-                    })}
-                    time={format(parseISO(game.time), "HH'h'", {
-                      locale: ptBR,
-                    })} 
-                    currentPlayers={14}
-                    maxPlayers={game.matches_qtd}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="flex justify-center items-center h-40">
-                <p className="text-2xl text-gray-500">
-                  Não há partidas no momento
-                </p>
-              </div>
-            )}
-            <ScrollBar orientation="vertical" />
-          </ScrollArea>
+          <div className="md:hidden">
+            <DialogCreateGame />
+          </div>
         </div>
-        <div className="ml-auto mx-[4.5rem] mb-12">
-          <DialogCreateGame />
+
+        {source === "demo" ? (
+          <p className="mt-4 rounded-xl bg-cardBlue px-4 py-3 text-sm leading-6 text-[#454545]">
+            Modo demonstração: partidas locais enquanto a API está fora do ar.
+          </p>
+        ) : null}
+
+        <div className="mt-6">
+          {loading ? (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {Array.from({ length: 6 }, (_, index) => (
+                <div
+                  key={index}
+                  className="h-24 animate-pulse rounded-2xl bg-white"
+                />
+              ))}
+            </div>
+          ) : upcoming.length > 0 ? (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {upcoming.map((game) => (
+                <CardTeste
+                  id={game.id}
+                  key={game.id}
+                  name={game.name}
+                  platform={game.platform}
+                  date={formatMatchDate(game.date)}
+                  time={formatMatchTime(game.time || game.date)}
+                  currentPlayers={game.players.length}
+                  maxPlayers={game.matches_qtd}
+                  buttonstatus={
+                    game.players.length >= game.matches_qtd ? "closed" : "open"
+                  }
+                />
+              ))}
+            </div>
+          ) : (
+            <EmptyState
+              title="Não há partidas no momento"
+              description="Crie uma partida para a galera entrar."
+            />
+          )}
         </div>
       </div>
-    </div>
+      <div className="fixed bottom-8 right-10 z-30 hidden md:block">
+        <DialogCreateGame />
+      </div>
+    </AppShell>
   );
 }
