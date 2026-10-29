@@ -147,7 +147,6 @@ No projeto da Vercel, o **Root Directory** é `client`. Depois do merge, um novo
 
 ## Links
 
-- Deploy: [citigames-squadian.vercel.app](https://citigames-squadian.vercel.app)
 - Repositório: [github.com/iianmelo/citigames-squadian](https://github.com/iianmelo/citigames-squadian)
 - CITi: [citi.org.br](https://citi.org.br)
 - Autor: [Ian Medeiros Melo](https://github.com/iianmelo)
