@@ -24,15 +24,18 @@ O produto cobre o fluxo de quem marca um jogo e de quem entra nele: listar as pr
 
 ## Sobre o projeto
 
-O CITi Games foi feito entre novembro e dezembro de 2024, na etapa final do processo seletivo de trainees do CITi. O ponto de partida foi um layout no Figma. O repositório entrega o protótipo navegável dessa plataforma: sidebar ciano, tipografia Barlow, cards de partida e os fluxos de criar, entrar e consultar.
+O protótipo original do CITi Games foi construído pelo time em um mês, entre novembro e dezembro de 2024, na etapa final do processo seletivo de trainees do CITi, sem uso de ferramentas de IA. O ponto de partida foi um layout no Figma. O resultado foi a plataforma navegável com a sidebar ciano, a tipografia Barlow, os cards de partida e os fluxos de criar, entrar e consultar.
 
-Ian Medeiros Melo, então desenvolvedor de software no CITi, liderou o time que construiu o protótipo.
+Ian Medeiros Melo, então desenvolvedor de software no CITi, liderou o time que construiu esse protótipo.
+
+A manutenção recente do repositório para portfólio — correções para o deploy carregar conteúdo, polimento da interface, este README e as capturas de tela — foi feita depois, já encerrado o processo seletivo. Ela não faz parte da entrega original do time.
 
 A home (`/`) redireciona para a lista de partidas. Quando a API não responde — que é o caso do deploy estático na Vercel, onde o front chamava `localhost:3001` — o app entra em modo demonstração e mostra partidas locais, salvas no navegador. Com a API no ar e com dados, a lista passa a vir do servidor.
 
 ## Liderança e processo
 
 - Ian liderou um time de 3 trainees. Os 3 foram aprovados e entraram no CITi.
+- O protótipo original foi feito por esse time em um mês, sem ferramentas de IA.
 - O trabalho seguiu um fluxo baseado em pull requests, com code review.
 - O projeto também foi a avaliação de Ian para a vaga de Software Manager, cargo para o qual ele foi promovido.
 
