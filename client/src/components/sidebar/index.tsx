@@ -1,10 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
 import Image from "next/image";
-import { Button } from "../ui/button";
-import { usePathname, useRouter } from "next/navigation"; 
-
+import { usePathname, useRouter } from "next/navigation";
 import {
   GameControllerOn,
   GameControllerOff,
@@ -13,52 +10,100 @@ import {
   WhiteLogoCITi,
 } from "@/assets";
 
+const items = [
+  {
+    href: "/games",
+    label: "Explorar Partidas",
+    shortLabel: "Partidas",
+    iconOn: GameControllerOn,
+    iconOff: GameControllerOff,
+  },
+  {
+    href: "/profile",
+    label: "Perfil",
+    shortLabel: "Perfil",
+    iconOn: UserOn,
+    iconOff: UserOff,
+  },
+];
+
 export default function Sidebar() {
   const router = useRouter();
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
-<div className="flex bg-[#58CBFB] items-center h-dvh w-[280px] p-5 flex-col justify-start">
-      <div className="w-[112.75px] h-[59.52px] top-[24px] left-[84px] gap-0 flex justify-center items-center mt-[40px]">
-        <Image src={WhiteLogoCITi} alt="Logo citi" width={140} height={420} />
-      </div>
-
-      <div className="flex flex-col gap-4 w-full mt-[40px]">
-        <button
-          className="custom-button w-[232px] h-[43px] top-[110px] left-[24px] gap-0"
-          onClick={() => router.push("/games")}
-        >
+    <>
+      <aside className="hidden h-dvh w-[280px] shrink-0 flex-col bg-[#58CBFB] px-5 py-8 md:flex">
+        <div className="flex justify-center">
           <Image
-            className="ml-3"
-            src={pathname === "/games" ? GameControllerOn : GameControllerOff}
-            alt="Explore Matches"
-            width={30}
-            height={30}
+            src={WhiteLogoCITi}
+            alt="CITi"
+            width={140}
+            height={64}
+            className="h-14 w-auto"
+            priority
           />
-          <p className="font-bold text-white">Explorar Partidas</p>
-        </button>
+        </div>
 
-        <button
-          className="custom-button w-[232px] h-[43px] top-[169px] left-[24px] gap-0"
-          onClick={() => router.push("/profile")}
-        >
-          <Image
-            className="ml-3"
-            src={pathname === "/profile" ? UserOn : UserOff}
-            alt="Profile"
-            width={30}
-            height={30}
-          />
-          <p className="font-medium text-white">Perfil</p>
-        </button>
-      </div>
+        <nav className="mt-10 flex flex-col gap-3" aria-label="Principal">
+          {items.map((item) => {
+            const active = pathname === item.href;
+            return (
+              <button
+                key={item.href}
+                type="button"
+                onClick={() => router.push(item.href)}
+                aria-current={active ? "page" : undefined}
+                className="custom-button h-11 w-full px-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              >
+                <Image
+                  src={active ? item.iconOn : item.iconOff}
+                  alt=""
+                  width={28}
+                  height={28}
+                />
+                <span className="font-barlow text-base font-bold text-white">
+                  {item.label}
+                </span>
+              </button>
+            );
+          })}
+        </nav>
 
-      <div className="w-[219px] h-[24px] top-[976px] left-[31px] gap-0 flex justify-center items-center mt-auto">
-        <p className="text-white text-base">
-          Made with <strong>&lt; &#x0002F; &gt;</strong> and{" "}
-          <strong>&hearts;</strong> by CITi
+        <p className="mt-auto px-2 text-center font-barlow text-sm leading-6 text-white">
+          Made with <strong>&lt;/&gt;</strong> and <strong>♥</strong> by CITi
         </p>
-      </div>
-    </div>
+      </aside>
+
+      <nav
+        className="fixed inset-x-0 bottom-0 z-40 flex h-16 items-stretch border-t border-white/30 bg-[#58CBFB] pb-[env(safe-area-inset-bottom)] md:hidden"
+        aria-label="Principal"
+      >
+        {items.map((item) => {
+          const active = pathname === item.href;
+          return (
+            <button
+              key={item.href}
+              type="button"
+              onClick={() => router.push(item.href)}
+              aria-current={active ? "page" : undefined}
+              className={`flex flex-1 flex-col items-center justify-center gap-1 font-barlow text-xs text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white ${
+                active
+                  ? "bg-white/25 font-bold shadow-[inset_0_-3px_0_#fff]"
+                  : "font-medium opacity-80"
+              }`}
+            >
+              <Image
+                src={active ? item.iconOn : item.iconOff}
+                alt=""
+                width={22}
+                height={22}
+              />
+              {item.shortLabel}
+            </button>
+          );
+        })}
+      </nav>
+    </>
   );
 }

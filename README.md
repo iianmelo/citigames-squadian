@@ -1,414 +1,150 @@
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <a href="https://github.com/citi-onboarding/pta-boilerplate">
-    <img src="./assets/logoCITi.png" alt="Logo" width="180px">
-  </a>
-
-  <h3 align="center">PTA</h3>
-
-  <p align="center">
-  Esse boilerplate foi criado durante o processo seletivo de 2022 do CITi e atualizado em 2023.2 com o intuito de aproximar as pessoas aspirantes à realidade
-  dentro do CITi. O boilerplate será usado durante a última etapa do processo seletivo, a qual tem o objetivo de capacitar tecnincamente as pessoas que entrarão no CITi.
-    <br />
-    <a href="https://github.com/citi-onboarding/pta-boilerplate"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    ·
-    <a href="https://github.com/citi-onboarding/pta-boilerplate/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/citi-onboarding/pta-boilerplate/issues">Request Feature</a>
-  </p>
-</p>
-
-
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary><h2 style="display: inline-block">Tabela de Conteúdo</h2></summary>
-  <ol>
-    <li><a href="#about-boilerplate">About Boilerplate</a></li>
-    <li><a href="#server">Server</a></li></li>
-    <ul>
-        <li><a href="#how-to-install">How To Install</a></li></li>
-        <li><a href="#how-to-run">How To Run</a></li></li>
-        <li><a href="#citi-abstraction-documentation">Citi Abstraction Documentation</a></li></li>
-        <ul>
-        <li><a href="#are-values-undefined">Are Values Undefined</a></li></li>
-        <li><a href="#insert-into-database">Insert Into Database</a></li></li>
-        <li><a href="#get-all">Get All</a></li></li>
-        <li><a href="#find-by-id">Find By ID</a></li></li>
-        <li><a href="#delete-value">Delete Value</a></li></li>
-        <li><a href="#delete">Update</a></li></li>
-        </ul>
-    </ul>
-    <li><a href="#client">Client</a></li>
-        <ul>
-        <li><a href="#how-to-install-client">How To Install Client</a></li></li>
-        <li><a href="#how-to-run-client">How To Run Client</a></li></li>
-        </ul>
-    </ul>
-    <li><a href="#add-new-dependencies">Add New Dependencies</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ol>
-</details>
-
-<br/> 
-
-## About Boilerplate
-<br/>
-
-  Esse boilerplate foi criado durante o processo seletivo de 2022 do CITi e ele tem o intuito de aproximar as pessoas aspirantes à realidade
-  dentro do CITi. O boilerplate será usado durante a última etapa do processo seletivo, a qual tem o objetivo de capacitar tecnincamente as pessoas que entrarão no CITi.
-  O template foi criado em um monorepo e está estruturado em cliente e servidor.
-
-<p align= "center">
-    <img src = "./assets/client-server.png" width="85%" margin-top="20px"/>
-</p>
-
-O server tem uma estrutura base de código para a construção de uma API. Já o cliente, contém uma outra estrutura base de código para a construção de todo o frontend da aplicação. 
-Ainda no server, tem uma abstração construída para facilitar o contato de pessoas aspirantes com a construção de uma API.
-
-
-<br/> 
-
-## Server
-
-<br/>
+# CITi Games
 
-## How To Install
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-18-149ECA?logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-38BDF8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-Radix-black)](https://ui.shadcn.com/)
+[![Vercel](https://img.shields.io/badge/deploy-Vercel-000?logo=vercel)](https://citigames-squadian.vercel.app)
 
-<br/>
+Protótipo web de uma plataforma para organizar partidas. A interface saiu de um design no Figma e virou um app em Next.js no processo seletivo de trainees do [CITi](https://citi.org.br), empresa júnior do Centro de Informática da UFPE (CIn-UFPE).
 
-0. Certifique-se que o **node** e o **yarn** estejam devidamente instalados. 
-   ```bash
-   npm i -g yarn
-   ```
-   *note: em Windows, talvez você precise rodar esse comando para o pleno funcionamento do yarn:*
-   ```bash
-   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
-   ```
+O produto cobre o fluxo de quem marca um jogo e de quem entra nele: listar as próximas partidas, abrir o detalhe, entrar na sala e buscar o histórico de um username.
 
-1. Clone o repositório
+## Sumário
 
-   ```sh
-   git clone URL_DO_REPOSITÓRIO
-   ```
+- [Sobre o projeto](#sobre-o-projeto)
+- [Liderança e processo](#liderança-e-processo)
+- [Funcionalidades](#funcionalidades)
+- [Screenshots](#screenshots)
+- [Stack](#stack)
+- [Como executar](#como-executar)
+- [Estrutura do projeto](#estrutura-do-projeto)
+- [Links](#links)
 
-2. Entre na pasta /server do repositório
+## Sobre o projeto
 
-3. Abra a pasta /server no vscode
+O CITi Games foi feito entre novembro e dezembro de 2024, na etapa final do processo seletivo de trainees do CITi. O ponto de partida foi um layout no Figma. O repositório entrega o protótipo navegável dessa plataforma: sidebar ciano, tipografia Barlow, cards de partida e os fluxos de criar, entrar e consultar.
 
-4. Vá em terminal e abra o novo terminal 
+Ian Medeiros Melo, então desenvolvedor de software no CITi, liderou o time que construiu o protótipo.
 
-5. Com o terminal aberto, escreva essa sentença abaixo e dê enter
+A home (`/`) redireciona para a lista de partidas. Quando a API não responde — que é o caso do deploy estático na Vercel, onde o front chamava `localhost:3001` — o app entra em modo demonstração e mostra partidas locais, salvas no navegador. Com a API no ar e com dados, a lista passa a vir do servidor.
 
-   ```sh
-   yarn install
-   ```
+## Liderança e processo
 
-   ou 
+- Ian liderou um time de 3 trainees. Os 3 foram aprovados e entraram no CITi.
+- O trabalho seguiu um fluxo baseado em pull requests, com code review.
+- O projeto também foi a avaliação de Ian para a vaga de Software Manager, cargo para o qual ele foi promovido.
 
-   ```sh
-   npm install
-   ```
+## Funcionalidades
 
-<br/> 
+- **Explorar partidas** — próximas partidas em cards, com data, hora, plataforma e vagas. Azul para sala aberta, roxo para sala lotada.
+- **Detalhe da partida** — descrição, link e lista de participantes, com ação de entrar ou sair.
+- **Criar partida** — identificação e formulário com validação. A partida criada abre na própria ficha.
+- **Perfil** — busca por username, abas de partidas e histórico, e filtro por intervalo de datas.
+- **Modo demonstração** — se `GET /match` não retorna partidas, o protótipo continua utilizável sem backend.
+- **Layout responsivo** — a sidebar vira barra superior e navegação inferior em telas pequenas, com as mesmas cores e os mesmos destinos.
 
-## How To Run
+## Screenshots
 
-<br/>
+### Desktop
 
-0. Certifique-se que o docker esteja devidamente instalado
-1. Com a pasta /server aberta no vscode, crie um novo arquivo e o nomeie de ".env"
-2. Dentro desse novo arquivo criado, coloque esse texto abaixo
+Lista de próximas partidas.
 
-   ```javascript
-      # ###### GENERAL SETTINGS #######
-      PROJECT_NAME=pta
-      SERVER_PORT=3001 
+<img src="docs/screenshots/desktop-partidas.png" alt="Lista de próximas partidas no desktop" width="100%" />
 
-      # ###### DATABASE SETTINGS #######
-      DATABASE_TYPE=postgres
-      DATABASE_HOST=${PROJECT_NAME}-db
-      DATABASE_PORT=5432
-      DATABASE_USER=postgres
-      DATABASE_PASSWORD=docker
-      DATABASE_DB=${PROJECT_NAME}
+Detalhe de uma partida, com descrição, link e participantes.
 
-      DATABASE_URL=${DATABASE_TYPE}://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_DB}
-   ```
-3. Abra um novo terminal no vscode
-4. Com o terminal aberto, escreva essa sentença abaixo e dê enter
+<img src="docs/screenshots/desktop-detalhe.png" alt="Detalhe da partida Valorant no desktop" width="100%" />
 
-   ```sh
-   docker-compose up
-   ```
+Busca por username, partidas abertas e partidas fechadas.
 
-   ou 
+<img src="docs/screenshots/desktop-perfil.png" alt="Tela de perfil no desktop" width="100%" />
 
-   ```sh
-   docker compose up
-   ```
+Formulário de criação.
 
-5. Espere que o terminal esteja dessa maneira
+<img src="docs/screenshots/desktop-criar.png" alt="Formulário de criar partida no desktop" width="100%" />
 
-    <p align= "center"><img src= "./assets/server-status.png" width="85%"/>
-        
-    </p>
+### Mobile
 
-6. Com este terminal rodando, abra outro terminal, ainda na pasta /server, e rode essa sentença abaixo
+<img src="docs/screenshots/mobile-partidas.png" alt="Lista de partidas no mobile" width="320" />
+<img src="docs/screenshots/mobile-detalhe.png" alt="Detalhe da partida no mobile" width="320" />
+<img src="docs/screenshots/mobile-perfil.png" alt="Perfil no mobile" width="320" />
+<img src="docs/screenshots/mobile-criar.png" alt="Criar partida no mobile" width="320" />
 
-   ```sh
-   yarn migration
-   ```
+## Stack
 
-   ou 
+| Camada | Tecnologias |
+| --- | --- |
+| Interface | TypeScript, React 18, Next.js 14 (App Router), Tailwind CSS, shadcn/ui |
+| Dados no client | Axios, com fallback local quando a API está indisponível |
+| API | Node.js, Express, Prisma, PostgreSQL |
+| Deploy | Vercel (diretório raiz do projeto: `client`) |
 
-   ```sh
-   npm run migration
-   ```
+## Como executar
 
-   *OBS. 1: Ao aparecer o campo "Enter a name for the new migration:", digite uma frase rápida que indique o que foi feito (ex.: add model user). A migration é como se fosse o commit do banco de dados.*
-   
-   *OBS. 2: É necessário que esse comando seja rodado a cada vez que você modificar o arquivo `schema.prisma`*
+É preciso Node.js 18 ou superior. Yarn ou npm servem.
 
-<br/> 
+### Frontend
 
-## Citi Abstraction Documentation
+```bash
+cd client
+yarn install
+yarn dev
+```
 
-<br/>
+Abra [http://localhost:3000](http://localhost:3000). A rota `/` leva para `/games`.
 
-### Are Values Undefined
+Sem a API, o aviso de modo demonstração aparece e as partidas ficam neste navegador. Criar uma partida, entrar e sair continuam funcionando.
 
-<br/>
+Na raiz do repositório, os mesmos comandos estão disponíveis:
 
-Essa função verifica se existe um valor undefined passando no argumento.
-
-- Observação: Essa função recebe quantos argumentos forem preciso.
-
-   
-    
-   ```javascript 
-    Retorna o booleano true caso exista valores undefnined
-   ```
-
-   ```javascript
-    Retorna o booleano false caso exista valores undefnined
-   ```
-
-Exemplo:
-<p align= "center">
-    <img src= "./assets/undefined.png" width="85%"/>
-    </p>
-
-<br/> 
-
-### Insert Into Database
-
-<br/>
-
-Essa função tem a finalidade de inserir um valor de modelo dentro de um banco de dados.
-
-- Observação: Essa função recebe o novo objeto a ser inserido como argumentos.
-
-<br/>
-
-   ```javascript 
-    Retorna https 201 caso o procedimento ocorra de forma correta
-   ```
-
-   ```javascript
-    Retorna https 400 caso o procedimento NÃO ocorra de forma correta
-   ```
-
-
-Exemplo:
-<p align= "center">
-    <img src= "./assets/insert.png" width="85%"/>
-    </p>
-
-<br/> 
-
-### Get All
-
-<br/>
-
-Essa função tem a finalidade de pegar TODOS os valores de modelo dentro de um banco de dados.
-
-- Observação: Essa função não tem argumentos.
-
-<br/>
-
-   ```javascript 
-    Retorna https 200 caso o procedimento ocorra de forma correta
-   ```
-
-   ```javascript
-    Retorna https 400 caso o procedimento NÃO ocorra de forma correta
-   ```
-
-
-Exemplo:
-<p align= "center">
-    <img src= "./assets/get.png" width="85%"/>
-    </p>
-
-<br/> 
-
-### Find By Id
-
-<br/>
-
-Essa função tem a finalidade de procurar um valor de modelo dentro de um banco de dado, utilizando o ID.
-
-- Observação: Essa função recebe o ID como argumento.
-
-<br/>
-
-   ```javascript 
-    Retorna o valor procurado caso o procedimento ocorra de forma correta
-   ```
-
-   ```javascript
-    Retorna undefined caso o procedimento NÃO ocorra de forma correta
-   ```
-
-
-Exemplo:
-<p align= "center">
-    <img src= "./assets/find.png" width="85%"/>
-    </p>
-
-<br/> 
-
-
-### Delete Value
-
-<br/>
-
-Essa função tem a finalidade de deletar um valor de modelo dentro de um banco de dado, utilizando o ID.
-
-- Observação: Essa função recebe o ID como argumento.
-
-<br/>
-
-   ```javascript 
-    Retorna https 200 caso o procedimento ocorra de forma correta
-   ```
-
-   ```javascript
-    Retorna https 400 caso o procedimento NÃO ocorra de forma correta
-   ```
-
-Exemplo:
-<p align= "center">
-    <img src= "./assets/delete.png" width="85%"/>
-    </p>
-
-<br/> 
-
-### Update Value
-
-<br/>
-
-Essa função tem a finalidade de atualizar um valor de modelo dentro de um banco de dado, utilizando o ID.
-
-- Observação: Essa função recebe o ID e os novos valores como argumentos.
-
-<br/>
-
-   ```javascript 
-    Retorna https 200 caso o procedimento ocorra de forma correta
-   ```
-
-   ```javascript
-    Retorna https 400 caso o procedimento NÃO ocorra de forma correta
-   ```
-
-Exemplo:
-<p align= "center">
-    <img src= "./assets/update.png" width="85%"/>
-    </p>
-
-<br/> 
-
-## Client
-
-<br/>
-
-## How To Install Client
-
-<br/>
-
-1. Entre na pasta /client do repositório
-
-2. Abra a pasta /client  no vscode
-
-3. Vá em terminal e abra o novo terminal 
-
-4. Com o terminal aberto, escreva essa sentença abaixo e dê enter
-
-   ```sh
-   yarn install
-   ```
-
-   ou 
-
-   ```sh
-   npm install
-   ```
-
-<br/> 
-
-## How To Run Client
-
-<br/>
-
-1. Entre na pasta /client do repositório
-
-2. Abra a pasta /client no vscode
-
-3. Vá em terminal e abra o novo terminal 
-
-4. Com o terminal aberto, escreva essa sentença abaixo e dê enter
-
-   ```sh
-   yarn dev
-   ```
-
-   ou 
-
-   ```sh
-   npm run dev
-   ```
-
-3. Espere que o terminal esteja dessa maneira
-
-    <p align= "center"><img src= "./assets/client-status.png" width="85%"/>
-        
-    </p>
-
-<br/> 
-
-## Add New Dependencies
-
-<br/>
-
-Não instale novas dependências sem a autorização da pessoa gerente do projeto. Caso seja preciso, converse com gerentes e peça direcionamento 
-de como faz para adicionar. 
-
-
-<br/> 
-
-## Contact
-
-<br/>
-
-- [Alex Damascena](https://github.com/apfdamascena), líder de desenvolvimento em 2022.1 - apfd@cin.ufpe.br
-- [Tiago Lima](https://github.com/titi-lima), líder de desenvolvimento em 2023.2 - tmsl@cin.ufpe.br
-
-## 2022 Boilerplate
-
-<br/>
-
-- [apfdamascena/pta-boilerplate](https://github.com/apfdamascena/pta-boilerplate)
+```bash
+yarn --cwd client dev
+yarn --cwd client lint
+yarn --cwd client typecheck
+yarn --cwd client build
+```
+
+`lint`, `typecheck` e `build` precisam passar antes de considerar o client pronto.
+
+### API (opcional)
+
+O front não depende da API para a demonstração. Para subir o backend:
+
+```bash
+cd server
+cp .env.example .env
+docker compose up db -d
+yarn install
+yarn migration:deploy
+yarn dev
+```
+
+A API escuta em [http://localhost:3001](http://localhost:3001). O client usa essa URL por padrão (`NEXT_PUBLIC_API_URL` em `client/.env.example`). Com partidas gravadas no Postgres, a lista deixa o modo demonstração e passa a usar o servidor.
+
+### Deploy
+
+No projeto da Vercel, o **Root Directory** é `client`. Depois do merge, um novo deploy publica o redirect da home e o modo demonstração. Enquanto a API pública não existir, o site mostra as partidas locais em vez de uma tela vazia.
+
+## Estrutura do projeto
+
+```text
+.
+├── client/                 # Next.js — telas do protótipo
+│   └── src/
+│       ├── app/            # rotas: /games, /profile, /CreateGame, /[id]
+│       ├── components/     # sidebar, cards, dialogs, shell
+│       └── lib/            # partidas, formato de data, fallback de API
+├── server/                 # Express + Prisma
+│   ├── prisma/             # schema e migrations
+│   └── src/                # rotas de partidas e jogadores
+└── docs/screenshots/       # capturas desktop e mobile
+```
+
+## Links
+
+- Deploy: [citigames-squadian.vercel.app](https://citigames-squadian.vercel.app)
+- Repositório: [github.com/iianmelo/citigames-squadian](https://github.com/iianmelo/citigames-squadian)
+- CITi: [citi.org.br](https://citi.org.br)
+- Autor: [Ian Medeiros Melo](https://github.com/iianmelo)

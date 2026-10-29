@@ -1,16 +1,5 @@
-"use client"
-import DialogCreateGame from "@/components/dialogCreateGame";
+import { redirect } from "next/navigation";
 
-import React from "react";
-
-
-const Page = () => {
-
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <DialogCreateGame></DialogCreateGame>
-    </div>
-  );
-};
-
-export default Page;
+export default function HomePage() {
+  redirect("/games");
+}

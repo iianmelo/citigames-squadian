@@ -1,179 +1,142 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import Topbar from "@/components/topbar";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import DialogEnterGame from "@/components/dialogEnterGame";
 import { CircleUserRound } from "lucide-react";
-import axios from "axios";
-import Sidebar from "@/components/sidebar";
-import { format } from "date-fns";
-import { mt, ptBR } from "date-fns/locale";
+import AppShell from "@/components/AppShell";
+import DialogEnterGame from "@/components/dialogEnterGame";
+import EmptyState from "@/components/EmptyState";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useMatches } from "@/components/MatchProvider";
+import { formatMatchDate, formatMatchTime } from "@/lib/format";
+import { getSession, type Session } from "@/lib/matches";
 
+export default function MatchDetailsPage() {
+  const params = useParams<{ id: string }>();
+  const id = Number(params.id);
+  const { matches, loading, joinMatch, leaveMatch } = useMatches();
+  const match = matches.find((item) => item.id === id);
+  const [session, setSessionState] = useState<Session | null>(null);
 
-interface DetailsPageProps {
-  name: string;
-  platform: string;
-  date: string;
-  time: string;
-  link: string;
-  description: string;
-  matches_qtd: number;
-  players: string[];
-}
+  useEffect(() => {
+    setSessionState(getSession());
+  }, [matches]);
 
-const fetchMatchDetails = async (id: number): Promise<DetailsPageProps> => {
-  try {
-    console.log("Fetching match details for id:", id);
-    const response = await axios.get(`http://localhost:3001/match/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching match details:", error);
-    throw error;
-  }
-};
-
-function DetailsPage({
-  name,
-  platform,
-  date,
-  time,
-  link,
-  description,
-  matches_qtd,
-  players = [],
-}: DetailsPageProps) {
-  {/*const currentPlayers = players.length;*/}
-  const currentPlayers = 3;
-  const formattedDate = format(new Date(date), "dd/MM/yyyy", { locale: ptBR });
-  const formattedTime = format(new Date(date), "HH'h'");
-
-
-  const roomStatus: "available" | "full" | "inside" =
-    currentPlayers < matches_qtd
-      ? "available"
-      : currentPlayers >= matches_qtd
+  const currentPlayers = match?.players.length ?? 0;
+  const joined = Boolean(
+    session &&
+      match?.players.some(
+        (player) =>
+          player.username.toLowerCase() === session.username.toLowerCase()
+      )
+  );
+  const roomStatus = joined
+    ? "inside"
+    : match && currentPlayers >= match.matches_qtd
       ? "full"
-      : "inside";
+      : "available";
 
   const bgColors = {
-    available: "bg-[#D2EFFE]",
-    full: "bg-[#D5C6FA]",
-    inside: "bg-[##D0F4E4]",
+    available: "bg-cardBlue",
+    full: "bg-cardPurple",
+    inside: "bg-cardGreen",
   };
 
   return (
-    <div className="flex flex-row w-screen h-screen">
-      <Sidebar/>
-      <div className="flex flex-col flex-grow overflow-y-auto w-full h-full bg-[#F5F5F5]">
-        <Topbar isReturnEnabled={true} />
-        <div className="flex flex-col gap-[70px] gdcustom:justify-center gdcustom:gap-0 gdcustom:flex-row flex-grow items-center gdcustom:items-start justify-center bg-[#F5F5F5] pr-[40px] pl-16 py-[10vh]">
-          <div className="flex flex-col items-center gdcustom:items-start flex-grow max-w-md w-full gdcustom:pr-0 gdcustom:mr-[60px]">
-            <h1 className="text-[#6800E4] font-barlow text-[14px] font-normal leading-[15px] text-left ">
-              Partidas
-            </h1>
-            <h1 className="text-[#000000] font-barlow text-[28px] font-medium leading-[36px] text-left mt-2 mb-3">
-              {name}
-            </h1>
-            <div className="flex text-[16px] leading-[19.2px] font-barlow text-[#454545] gap-2">
-              <p>{formattedDate}</p> 
-              <span>|</span> 
-              <p>{formattedTime}</p>
-            </div>
-            <p className="font-barlow text-[16px] font-normal leading-[19.2px] text-left py-2 mb-[40px] text-[#454545]">
-              {platform}
-            </p>
-            <div className="py-2 w-full">
-              <p className="text-[16px] leading-[19.2px] text-[#000000] font-medium font-barlow mb-2">
-                Descrição:
+    <AppShell showBack>
+      <div className="mx-auto flex w-full max-w-5xl flex-col items-stretch gap-8 px-4 py-6 md:px-10 md:py-10 gdcustom:flex-row gdcustom:items-start gdcustom:justify-center gdcustom:gap-16">
+        {loading ? (
+          <div className="h-80 w-full animate-pulse rounded-2xl bg-white" />
+        ) : !match ? (
+          <EmptyState
+            title="Partida não encontrada"
+            description="Ela pode ter saído da lista ou o link está incompleto."
+          />
+        ) : (
+          <>
+            <section className="w-full max-w-md flex-1">
+              <p className="font-barlow text-sm text-[#6800E4]">Partidas</p>
+              <h1 className="mt-2 font-barlow text-[1.75rem] font-medium leading-9">
+                {match.name}
+              </h1>
+              <p className="mt-2 flex gap-2 font-barlow text-base text-[#454545]">
+                <span>{formatMatchDate(match.date)}</span>
+                <span aria-hidden>|</span>
+                <span>{formatMatchTime(match.time || match.date)}</span>
               </p>
-              <p className="text-[14px] leading-[16.8px] font-barlow bg-[#FFFFFF80] text-[#454545] rounded-lg shadow-md p-4 mb-8">
-                {description}
+              <p className="mt-1 font-barlow text-base text-[#454545]">
+                {match.platform}
               </p>
 
-              <p className="text-[16px] leading-[19.2px] text-[#000000] font-barlow font-medium mb-2 pt-2">
-                Link:
-              </p>
-              <p className="text-[14px] leading-[16.8px] font-barlow bg-[#FFFFFF80] text-[#454545] rounded-lg shadow-md p-4">
-                <a href={link} target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-600">
-                  {link}
-                </a>
-              </p>
-              <div className="gdcustom:mt-10 mt-6 flex justify-center items-center">
-                <DialogEnterGame></DialogEnterGame>
+              <div className="mt-8">
+                <h2 className="font-barlow text-base font-medium">Descrição</h2>
+                <p className="mt-2 rounded-lg bg-white/80 p-4 font-barlow text-sm leading-6 text-[#454545] shadow-md">
+                  {match.description || "Sem descrição."}
+                </p>
               </div>
-            </div>
-          </div>
 
-          <div className="flex flex-col items-center gdcustom:items-start p-4 text-lg font-barlow bg-[#F5F5F5] shadow-cardShadow gdcustom:w-[400px] min-w-[250px] rounded-2xl">
-            <div className="flex items-center justify-between min-w-[10px] w-full mb-4">
-              <p className="text-[24px] leading-[32px] font-barlow text-[#000000]">
-                Participantes
-              </p>
-              <p className="text-[24px] leading-[32px] font-barlow text-[#000000]">
-                {currentPlayers} / {matches_qtd}
-              </p>
-            </div>
-
-            <ScrollArea className={`mt-4 h-[500px] ${bgColors[roomStatus]} p-5 w-full overflow-y-auto rounded-2xl`} >
-              <div className="text-[16px] leading-[19.2px] text-[#454545] p-1 font-barlow">
-                {/*
-                  <div className="flex items-center gap-2 mb-2">
-                    <CircleUserRound size={24} />
-                    <span>sokdkjs</span>
-                  </div>
-                  */}
-                  <div className="flex items-center gap-2 mb-2">
-                    <CircleUserRound size={24} />
-                    <span>Ian</span>
-                  </div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <CircleUserRound size={24} />
-                    <span>Felipe</span>
-                  </div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <CircleUserRound size={24} />
-                    <span>Ramon</span>
-                  </div>
-              
+              <div className="mt-6">
+                <h2 className="font-barlow text-base font-medium">Link</h2>
+                <div className="mt-2 break-all rounded-lg bg-white/80 p-4 font-barlow text-sm leading-6 text-[#454545] shadow-md">
+                  {/^https?:\/\//i.test(match.link) ? (
+                    <a
+                      href={match.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline underline-offset-2 hover:text-[#1a73e8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#58CBFB]"
+                    >
+                      {match.link}
+                    </a>
+                  ) : (
+                    match.link || "Sem link."
+                  )}
+                </div>
               </div>
-              <ScrollBar orientation="vertical" />
-            </ScrollArea>
-          </div>
-        </div>
+
+              <div className="mt-8 flex justify-center">
+                <DialogEnterGame
+                  roomStatus={roomStatus}
+                  onJoin={(data) => {
+                    joinMatch(match.id, data);
+                    setSessionState(data);
+                  }}
+                  onLeave={() => {
+                    if (!session) return;
+                    leaveMatch(match.id, session.username);
+                  }}
+                />
+              </div>
+            </section>
+
+            <aside className="w-full rounded-2xl bg-loginBg p-4 shadow-cardShadow gdcustom:w-[400px] gdcustom:shrink-0">
+              <div className="mb-4 flex items-center justify-between gap-4">
+                <h2 className="font-barlow text-2xl">Participantes</h2>
+                <p className="font-barlow text-2xl tabular-nums">
+                  {currentPlayers}
+                  <span className="text-[#454545]">/{match.matches_qtd}</span>
+                </p>
+              </div>
+              <ScrollArea
+                className={`h-80 w-full rounded-2xl p-4 md:h-[28rem] ${bgColors[roomStatus]}`}
+              >
+                <ul className="space-y-3 font-barlow text-base text-[#454545]">
+                  {match.players.length > 0 ? (
+                    match.players.map((player) => (
+                      <li key={player.id} className="flex items-center gap-2">
+                        <CircleUserRound size={22} aria-hidden />
+                        <span>{player.username}</span>
+                      </li>
+                    ))
+                  ) : (
+                    <li>Ninguém entrou ainda.</li>
+                  )}
+                </ul>
+                <ScrollBar orientation="vertical" />
+              </ScrollArea>
+            </aside>
+          </>
+        )}
       </div>
-    </div>
+    </AppShell>
   );
-}
-
-export default function Page() {
-  const params = useParams();
-  const id = params.id as string;
-
-  const [details, setDetails] = useState<DetailsPageProps | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
-
-  useEffect(() => {
-    if (id) {
-      const getMatchDetails = async () => {
-        try {
-          const data = await fetchMatchDetails(Number(id));
-          setDetails(data);
-        } catch (error) {
-          setError(error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      getMatchDetails();
-    }
-  }, [id]);
-
-  if (loading) return <p></p>;
-  if (error) return <p>Error: {error.message}</p>;
-
-  return details ? <DetailsPage {...details} /> : <p>No details available</p>;
 }

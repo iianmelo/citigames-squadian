@@ -134,6 +134,7 @@ export default class Citi<Entity extends ModelNames> {
         where: {
           id: Number(id),
         },
+        ...(this.entity === "Match" ? { include: { users: true } } : {}),
       });
       Terminal.show(Message.VALUE_WAS_FOUND);
       return {
